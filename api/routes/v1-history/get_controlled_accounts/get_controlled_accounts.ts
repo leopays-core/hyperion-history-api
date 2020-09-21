@@ -1,7 +1,7 @@
-import {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
-import {ServerResponse} from "http";
-import {timedQuery} from "../../../helpers/functions";
-import {ApiResponse} from "@elastic/elasticsearch";
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { ServerResponse } from "http";
+import { timedQuery } from "../../../helpers/functions";
+import { ApiResponse } from "@elastic/elasticsearch";
 
 async function getControlledAccounts(fastify: FastifyInstance, request: FastifyRequest) {
     if (typeof request.body === 'string') {
@@ -16,13 +16,14 @@ async function getControlledAccounts(fastify: FastifyInstance, request: FastifyR
                 bool: {
                     should: [
                         {
-                            term: {"@updateauth.auth.accounts.permission.actor": controlling_account}},
+                            term: { "@updateauth.auth.accounts.permission.actor": controlling_account }
+                        },
                         {
                             bool: {
                                 must: [
-                                    {term: {"act.account": "eosio"}},
-                                    {term: {"act.name": "newaccount"}},
-                                    {term: {"act.authorization.actor": controlling_account}}
+                                    { term: { "act.account": "lpc" } },
+                                    { term: { "act.name": "newaccount" } },
+                                    { term: { "act.authorization.actor": controlling_account } }
                                 ]
                             }
                         }
@@ -31,7 +32,7 @@ async function getControlledAccounts(fastify: FastifyInstance, request: FastifyR
                 }
             },
             sort: [
-                {"global_sequence": {"order": "desc"}}
+                { "global_sequence": { "order": "desc" } }
             ]
         }
     });

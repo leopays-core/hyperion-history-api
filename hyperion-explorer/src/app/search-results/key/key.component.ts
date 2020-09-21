@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {AccountService} from "../../services/account.service";
-import {faCircle} from "@fortawesome/free-solid-svg-icons/faCircle";
-import {faKey} from "@fortawesome/free-solid-svg-icons/faKey";
-import {faSadTear} from "@fortawesome/free-solid-svg-icons/faSadTear";
-import {faSpinner} from "@fortawesome/free-solid-svg-icons/faSpinner";
-import {ChainService} from '../../services/chain.service';
-import {Title} from '@angular/platform-browser';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
+import { AccountService } from "../../services/account.service";
+import { faCircle } from "@fortawesome/free-solid-svg-icons/faCircle";
+import { faKey } from "@fortawesome/free-solid-svg-icons/faKey";
+import { faSadTear } from "@fortawesome/free-solid-svg-icons/faSadTear";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons/faSpinner";
+import { ChainService } from '../../services/chain.service';
+import { Title } from '@angular/platform-browser';
 
 interface KeyResponse {
   account_names: string[];
@@ -30,9 +30,9 @@ export class KeyComponent implements OnInit {
   faSpinner = faSpinner;
 
   constructor(private activatedRoute: ActivatedRoute,
-              public accountService: AccountService,
-              public chainData: ChainService,
-              private title: Title) {
+    public accountService: AccountService,
+    public chainData: ChainService,
+    private title: Title) {
   }
 
   ngOnInit(): void {

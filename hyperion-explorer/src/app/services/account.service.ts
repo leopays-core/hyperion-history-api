@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../../environments/environment';
-import {AccountCreationData, GetAccountResponse} from '../interfaces';
-import {MatTableDataSource} from '@angular/material/table';
-import {HyperionSocketClient} from '@eosrio/hyperion-stream-client/lib/client/hyperion-socket-client';
-import {IncomingData} from '@eosrio/hyperion-stream-client/lib';
-import {ancestorWhere} from 'tslint';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { AccountCreationData, GetAccountResponse } from '../interfaces';
+import { MatTableDataSource } from '@angular/material/table';
+import { HyperionSocketClient } from '@eosrio/hyperion-stream-client/lib/client/hyperion-socket-client';
+import { IncomingData } from '@eosrio/hyperion-stream-client/lib';
+import { ancestorWhere } from 'tslint';
 
 interface HealthResponse {
   features: {
@@ -141,7 +141,7 @@ export class AccountService {
     try {
       const health = await this.httpClient.get(this.server + '/v2/health').toPromise() as HealthResponse;
       if (health.features.streaming.enable) {
-        this.streamClient = new HyperionSocketClient(this.server, {async: true});
+        this.streamClient = new HyperionSocketClient(this.server, { async: true });
 
         this.streamClient.onConnect = () => {
           this.streamClientStatus = this.streamClient.online;

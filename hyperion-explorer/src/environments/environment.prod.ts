@@ -2,6 +2,6 @@ export const environment = {
   production: true,
   eosioNodeUrl: '',
   hyperionApiUrl: '',
-  systemContract: 'eosio',
+  systemContract: 'lpc',
   userResourcesTable: 'userres'
 };

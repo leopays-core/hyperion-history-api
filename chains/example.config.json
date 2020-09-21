@@ -24,8 +24,8 @@
   },
   "settings": {
     "preview": false,
-    "chain": "eos",
-    "eosio_alias": "eosio",
+    "chain": "leopays",
+    "eosio_alias": "lpc",
     "parser": "1.8",
     "auto_stop": 300,
     "index_version": "v1",

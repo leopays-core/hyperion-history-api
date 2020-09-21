@@ -1,26 +1,26 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {AccountService} from '../../services/account.service';
-import {MatSort} from '@angular/material/sort';
-import {faClock} from '@fortawesome/free-solid-svg-icons/faClock';
-import {faUserCircle} from '@fortawesome/free-solid-svg-icons/faUserCircle';
-import {faCircle} from '@fortawesome/free-solid-svg-icons/faCircle';
-import {faStar} from '@fortawesome/free-solid-svg-icons/faStar';
-import {faLink} from '@fortawesome/free-solid-svg-icons/faLink';
-import {faHistory} from '@fortawesome/free-solid-svg-icons/faHistory';
-import {FlatTreeControl} from '@angular/cdk/tree';
-import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
-import {faChevronRight} from '@fortawesome/free-solid-svg-icons/faChevronRight';
-import {faChevronDown} from '@fortawesome/free-solid-svg-icons/faChevronDown';
-import {faKey} from '@fortawesome/free-solid-svg-icons/faKey';
-import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
-import {faSadTear} from '@fortawesome/free-solid-svg-icons/faSadTear';
-import {MatPaginator, PageEvent} from '@angular/material/paginator';
-import {faVoteYea} from '@fortawesome/free-solid-svg-icons/faVoteYea';
-import {faQuestionCircle} from '@fortawesome/free-regular-svg-icons/faQuestionCircle';
-import {AccountCreationData} from '../../interfaces';
-import {ChainService} from '../../services/chain.service';
-import {Title} from '@angular/platform-browser';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AccountService } from '../../services/account.service';
+import { MatSort } from '@angular/material/sort';
+import { faClock } from '@fortawesome/free-solid-svg-icons/faClock';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons/faUserCircle';
+import { faCircle } from '@fortawesome/free-solid-svg-icons/faCircle';
+import { faStar } from '@fortawesome/free-solid-svg-icons/faStar';
+import { faLink } from '@fortawesome/free-solid-svg-icons/faLink';
+import { faHistory } from '@fortawesome/free-solid-svg-icons/faHistory';
+import { FlatTreeControl } from '@angular/cdk/tree';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
+import { faKey } from '@fortawesome/free-solid-svg-icons/faKey';
+import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
+import { faSadTear } from '@fortawesome/free-solid-svg-icons/faSadTear';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { faVoteYea } from '@fortawesome/free-solid-svg-icons/faVoteYea';
+import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons/faQuestionCircle';
+import { AccountCreationData } from '../../interfaces';
+import { ChainService } from '../../services/chain.service';
+import { Title } from '@angular/platform-browser';
 
 interface Permission {
   perm_name: string;
@@ -70,8 +70,8 @@ interface FlatNode {
 })
 export class AccountComponent implements OnInit, OnDestroy {
 
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   // FontAwesome Icons
   faClock = faClock;
@@ -100,12 +100,12 @@ export class AccountComponent implements OnInit, OnDestroy {
   detailedView = true;
 
   systemPrecision = 4;
-  systemSymbol = '';
+  systemSymbol = 'LPC';
   creationData: AccountCreationData = {
     creator: undefined,
     timestamp: undefined
   };
-  systemTokenContract = 'eosio.token';
+  systemTokenContract = 'lpc.token';
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -186,10 +186,10 @@ export class AccountComponent implements OnInit, OnDestroy {
           try {
             this.systemSymbol = this.getSymbol(this.accountService.account.total_resources.cpu_weight);
             if (this.systemSymbol === null) {
-              this.systemSymbol = 'SYS';
+              this.systemSymbol = 'LPC';
             }
           } catch (e) {
-            this.systemSymbol = 'SYS';
+            this.systemSymbol = 'LPC';
           }
         }
         this.processPermissions();

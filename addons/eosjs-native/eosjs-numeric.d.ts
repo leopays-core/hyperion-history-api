@@ -57,11 +57,11 @@ export interface Key {
 export declare function stringToPublicKey(s: string): Key;
 /** Convert `key` to string (base-58) form */
 export declare function publicKeyToString(key: Key): string;
-/** If a key is in the legacy format (`EOS` prefix), then convert it to the new format (`PUB_K1_`).
+/** If a key is in the legacy format (`LPC` prefix), then convert it to the new format (`PUB_K1_`).
  * Leaves other formats untouched
  */
 export declare function convertLegacyPublicKey(s: string): string;
-/** If a key is in the legacy format (`EOS` prefix), then convert it to the new format (`PUB_K1_`).
+/** If a key is in the legacy format (`LPC` prefix), then convert it to the new format (`PUB_K1_`).
  * Leaves other formats untouched
  */
 export declare function convertLegacyPublicKeys(keys: string[]): string[];

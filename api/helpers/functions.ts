@@ -1,19 +1,19 @@
-import {createHash} from "crypto";
+import { createHash } from "crypto";
 import * as _ from "lodash";
-import {FastifyInstance, FastifyReply, FastifyRequest, HTTPMethod, RouteSchema} from "fastify";
-import {ServerResponse} from "http";
+import { FastifyInstance, FastifyReply, FastifyRequest, HTTPMethod, RouteSchema } from "fastify";
+import { ServerResponse } from "http";
 import got from "got";
 
 export function extendResponseSchema(responseProps: any) {
     const props = {
-        query_time_ms: {type: "number"},
-        cached: {type: "boolean"},
-        lib: {type: "number"},
+        query_time_ms: { type: "number" },
+        cached: { type: "boolean" },
+        lib: { type: "number" },
         total: {
             type: "object",
             properties: {
-                value: {type: "number"},
-                relation: {type: "string"}
+                value: { type: "number" },
+                relation: { type: "string" }
             }
         }
     };
@@ -224,9 +224,9 @@ export async function handleChainApiRedirect(
 
     try {
         const apiResponse = await got.post(reqUrl, opts);
-        reply.headers({"Content-Type": "application/json"});
+        reply.headers({ "Content-Type": "application/json" });
         if (request.req.method === 'HEAD') {
-            reply.headers({"Content-Length": apiResponse.body.length});
+            reply.headers({ "Content-Length": apiResponse.body.length });
             reply.send("");
         } else {
             reply.send(apiResponse.body);
@@ -321,7 +321,7 @@ export function addSharedSchemas(fastify: FastifyInstance) {
     fastify.addSchema({
         $id: "Signature",
         type: "string",
-        description: "String representation of an EOSIO compatible cryptographic signature",
+        description: "String representation of an LeoPays compatible cryptographic signature",
         pattern: "^SIG_([RK]1|WA)_[1-9A-HJ-NP-Za-km-z]+$",
         title: "Signature"
     })
@@ -331,25 +331,25 @@ export function addSharedSchemas(fastify: FastifyInstance) {
         "anyOf": [
             {
                 "type": "string",
-                "description": "String representation of privileged EOSIO name type",
-                "pattern": "^(eosio[\\.][a-z1-5]{1,6})([a-j]{1})?$",
+                "description": "String representation of privileged LeoPays name type",
+                "pattern": "^(lpc[\\.][a-z1-5]{1,8})([a-j]{1})?$",
                 "title": "NamePrivileged"
             },
             {
                 "type": "string",
-                "description": "String representation of basic EOSIO name type, must be 12 characters and contain only a-z and 0-5",
+                "description": "String representation of basic LeoPays name type, must be 12 characters and contain only a-z and 0-5",
                 "pattern": "^([a-z]{1}[a-z1-5]{11})([a-j]{1})?$",
                 "title": "NameBasic"
             },
             {
                 "type": "string",
-                "description": "String representation of EOSIO bid name type, 1-12 characters and only a-z and 0-5 are allowed",
+                "description": "String representation of LeoPays bid name type, 1-12 characters and only a-z and 0-5 are allowed",
                 "pattern": "^([a-z1-5]{1,12})([a-j]{1})?$",
                 "title": "NameBid"
             },
             {
                 "type": "string",
-                "description": "String representation of EOSIO name type",
+                "description": "String representation of LeoPays name type",
                 "pattern": "^([a-z1-5]{1}[a-z1-5\\.]{0,10}[a-z1-5]{1})([a-j]{1})?$",
                 "title": "NameCatchAll"
             }
@@ -369,7 +369,7 @@ export function addSharedSchemas(fastify: FastifyInstance) {
         $id: "BlockExtensions",
         "type": "array",
         "items": {
-            "anyOf": [{"type": "integer"}, {"type": "string"}]
+            "anyOf": [{ "type": "integer" }, { "type": "string" }]
         },
         "title": "Extension"
     })

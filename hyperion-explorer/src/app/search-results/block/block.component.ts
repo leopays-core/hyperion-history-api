@@ -1,18 +1,18 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {faCircle} from '@fortawesome/free-solid-svg-icons/faCircle';
-import {faCube} from '@fortawesome/free-solid-svg-icons/faCube';
-import {ActivatedRoute} from '@angular/router';
-import {AccountService} from '../../services/account.service';
-import {faHourglassStart} from '@fortawesome/free-solid-svg-icons/faHourglassStart';
-import {faLock} from '@fortawesome/free-solid-svg-icons/faLock';
-import {faHistory} from '@fortawesome/free-solid-svg-icons/faHistory';
-import {animate, state, style, transition, trigger} from '@angular/animations';
-import {faSpinner} from '@fortawesome/free-solid-svg-icons/faSpinner';
-import {faSadTear} from '@fortawesome/free-solid-svg-icons/faSadTear';
-import {faChevronRight} from '@fortawesome/free-solid-svg-icons/faChevronRight';
-import {faChevronDown} from '@fortawesome/free-solid-svg-icons/faChevronDown';
-import {ChainService} from '../../services/chain.service';
-import {Title} from '@angular/platform-browser';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { faCircle } from '@fortawesome/free-solid-svg-icons/faCircle';
+import { faCube } from '@fortawesome/free-solid-svg-icons/faCube';
+import { ActivatedRoute } from '@angular/router';
+import { AccountService } from '../../services/account.service';
+import { faHourglassStart } from '@fortawesome/free-solid-svg-icons/faHourglassStart';
+import { faLock } from '@fortawesome/free-solid-svg-icons/faLock';
+import { faHistory } from '@fortawesome/free-solid-svg-icons/faHistory';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons/faSpinner';
+import { faSadTear } from '@fortawesome/free-solid-svg-icons/faSadTear';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
+import { ChainService } from '../../services/chain.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-block',
@@ -20,8 +20,8 @@ import {Title} from '@angular/platform-browser';
   styleUrls: ['./block.component.css'],
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
@@ -58,9 +58,9 @@ export class BlockComponent implements OnInit, OnDestroy {
   }
 
   constructor(private activatedRoute: ActivatedRoute,
-              public accountService: AccountService,
-              public chainData: ChainService,
-              private title: Title) {
+    public accountService: AccountService,
+    public chainData: ChainService,
+    private title: Title) {
   }
 
   ngOnInit(): void {

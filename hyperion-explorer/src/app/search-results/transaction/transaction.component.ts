@@ -1,15 +1,15 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {AccountService} from '../../services/account.service';
-import {faExchangeAlt} from '@fortawesome/free-solid-svg-icons/faExchangeAlt';
-import {faCircle} from '@fortawesome/free-solid-svg-icons/faCircle';
-import {faLock} from '@fortawesome/free-solid-svg-icons/faLock';
-import {faHourglassStart} from '@fortawesome/free-solid-svg-icons/faHourglassStart';
-import {faHistory} from '@fortawesome/free-solid-svg-icons/faHistory';
-import {faSadTear} from '@fortawesome/free-solid-svg-icons/faSadTear';
-import {faSpinner} from '@fortawesome/free-solid-svg-icons/faSpinner';
-import {ChainService} from '../../services/chain.service';
-import {Title} from '@angular/platform-browser';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AccountService } from '../../services/account.service';
+import { faExchangeAlt } from '@fortawesome/free-solid-svg-icons/faExchangeAlt';
+import { faCircle } from '@fortawesome/free-solid-svg-icons/faCircle';
+import { faLock } from '@fortawesome/free-solid-svg-icons/faLock';
+import { faHourglassStart } from '@fortawesome/free-solid-svg-icons/faHourglassStart';
+import { faHistory } from '@fortawesome/free-solid-svg-icons/faHistory';
+import { faSadTear } from '@fortawesome/free-solid-svg-icons/faSadTear';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons/faSpinner';
+import { ChainService } from '../../services/chain.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-transaction',
@@ -41,9 +41,9 @@ export class TransactionComponent implements OnInit, OnDestroy {
   }
 
   constructor(private activatedRoute: ActivatedRoute,
-              public accountService: AccountService,
-              public chainData: ChainService,
-              private title: Title) {
+    public accountService: AccountService,
+    public chainData: ChainService,
+    private title: Title) {
   }
 
   ngOnInit() {

@@ -18,9 +18,9 @@
     "port": "6379"
   },
   "chains": {
-    "eos": {
-      "name": "EOS Mainnet",
-      "chain_id": "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906",
+    "leopays": {
+      "name": "LeoPays Mainnet",
+      "chain_id": "chain_id from /v1/chain/get_info",
       "http": "http://127.0.0.1:8888",
       "ship": "ws://127.0.0.1:8080",
       "WS_ROUTER_PORT": 7001,

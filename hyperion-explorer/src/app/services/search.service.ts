@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../../environments/environment';
-import {GetTableByScopeResponse, TableData} from '../interfaces';
-import {Router} from '@angular/router';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { GetTableByScopeResponse, TableData } from '../interfaces';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -69,7 +69,7 @@ export class SearchService {
     }
 
     // public key
-    if (searchText.startsWith('PUB_K1_') || searchText.startsWith('EOS')) {
+    if (searchText.startsWith('PUB_K1_') || searchText.startsWith('LPC')) {
       await this.router.navigate(['/key', searchText]);
       return true;
     }

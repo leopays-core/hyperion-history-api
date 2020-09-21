@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {debounceTime} from 'rxjs/operators';
-import {SearchService} from '../services/search.service';
-import {AccountService} from '../services/account.service';
-import {faSearch} from '@fortawesome/free-solid-svg-icons/faSearch';
-import {ChainService} from '../services/chain.service';
-import {Title} from '@angular/platform-browser';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { debounceTime } from 'rxjs/operators';
+import { SearchService } from '../services/search.service';
+import { AccountService } from '../services/account.service';
+import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch';
+import { ChainService } from '../services/chain.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-search-results',
