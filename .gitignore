@@ -105,3 +105,4 @@ modules/**/*.js.map
 
 addons/**/*.js
 addons/**/*.js.map
+.DS_Store
