@@ -1,1 +1,1 @@
-hyperion-history@v3.1.2 = hyperion-history@v0.1.0
+hyperion-history@v3.1.2 = @leopays-core/hyperion-history@v0.1.0

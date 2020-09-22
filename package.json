@@ -1,7 +1,23 @@
 {
-  "name": "hyperion-history",
+  "name": "@leopays-core/hyperion-history",
   "version": "0.1.0",
   "description": "Scalable Full History API Solution for LeoPays blockchain",
+  "private": true,
+  "author": {
+    "name": "LeoPays",
+    "email": "developers@leopays.com",
+    "url": "https://leopays.com/"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/leopays-core/hyperion-history-api#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leopays-core/hyperion-history-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/leopays-core/hyperion-history-api/issues",
+    "email": "developers@leopays.com"
+  },
   "main": "launcher.js",
   "scripts": {
     "logs": "pm2 logs Indexer",
@@ -11,15 +27,6 @@
     "tsc": "tsc",
     "postinstall": "yarn run tsc && yarn run fix-permissions"
   },
-  "author": {
-    "name": "LeoPays",
-    "url": "https://leopays.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/leopays-core/hyperion-history-api.git"
-  },
-  "license": "MIT",
   "dependencies": {
     "@elastic/elasticsearch": "^7.9.0",
     "@eosrio/node-abieos": "2.1.0-beta.0",
