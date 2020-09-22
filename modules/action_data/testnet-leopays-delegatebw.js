@@ -1,5 +1,5 @@
 const hyperionModule = {
-    chain: "!chain!",
+    chain: "07032d693384fab3ca2e89436baeda5c2f8bf8638af2a2075666487b6e1f47d9",
     contract: 'lpc',
     action: 'delegatebw',
     parser_version: ['1.8', '1.7'],

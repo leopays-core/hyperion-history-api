@@ -1,5 +1,5 @@
 const hyperionModule = {
-    chain: "*",
+    chain: "!chain!",
     contract: 'lpc',
     action: 'buyram',
     parser_version: ['1.8', '1.7'],
