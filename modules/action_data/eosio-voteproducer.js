@@ -1,6 +1,6 @@
 const hyperionModule = {
     chain: "*",
-    contract: 'lpc',
+    contract: 'eosio',
     action: 'voteproducer',
     parser_version: ['1.8', '1.7'],
     mappings: {
