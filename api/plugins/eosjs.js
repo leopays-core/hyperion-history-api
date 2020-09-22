@@ -1,5 +1,5 @@
 const fp = require('fastify-plugin');
-const { Api } = require("leopaysjs");
+const { Api } = require("@leopays-core/leopaysjs");
 const { ConnectionManager } = require('../../connections/manager');
 const manager = new ConnectionManager();
 
