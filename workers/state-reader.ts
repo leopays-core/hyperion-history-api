@@ -1,8 +1,8 @@
-import {HyperionWorker} from "./hyperionWorker";
-import {AsyncCargo, cargo} from "async";
-import {Serialize} from "../addons/eosjs-native";
-import {Type} from "eosjs/dist/eosjs-serialize";
-import {debugLog, deserialize, hLog, serialize} from "../helpers/common_functions";
+import { HyperionWorker } from "./hyperionWorker";
+import { AsyncCargo, cargo } from "async";
+import { Serialize } from "../addons/eosjs-native";
+import { Type } from "@leopays-core/leopaysjs/dist/leopaysjs-serialize";
+import { debugLog, deserialize, hLog, serialize } from "../helpers/common_functions";
 
 export default class StateReader extends HyperionWorker {
 
@@ -102,7 +102,7 @@ export default class StateReader extends HyperionWorker {
                             console.log('Message nacked!');
                             console.log(err.message);
                         } else {
-                            process.send({event: 'read_block', live: this.isLiveReader});
+                            process.send({ event: 'read_block', live: this.isLiveReader });
                         }
                     });
 
@@ -330,10 +330,10 @@ export default class StateReader extends HyperionWorker {
                             if (lib.block_num > this.local_lib) {
                                 this.local_lib = lib.block_num;
                                 // emit lib update event
-                                process.send({event: 'lib_update', data: lib});
+                                process.send({ event: 'lib_update', data: lib });
                             }
 
-                            this.stageOneDistQueue.push({num: blk_num, content: data});
+                            this.stageOneDistQueue.push({ num: blk_num, content: data });
                             return 1;
                         } else {
 
@@ -341,7 +341,7 @@ export default class StateReader extends HyperionWorker {
                             if (!this.receivedFirstBlock) {
                                 if (blk_num !== this.local_block_num + 1) {
                                     hLog(`WARNING: First block received was #${blk_num}, but #${this.local_block_num + 1} was expected!`);
-                                    hLog(`Make sure the block.log file contains the requested range, check with "eosio-blocklog --smoke-test"`);
+                                    hLog(`Make sure the block.log file contains the requested range, check with "leopays-blocklog --smoke-test"`);
                                     this.local_block_num = blk_num - 1;
                                 }
                                 this.receivedFirstBlock = true;
@@ -357,11 +357,11 @@ export default class StateReader extends HyperionWorker {
                             if (blk_num === this.local_block_num + 1) {
                                 this.local_block_num = blk_num;
                                 if (res['block'] || res['traces'] || res['deltas']) {
-                                    this.stageOneDistQueue.push({num: blk_num, content: data});
+                                    this.stageOneDistQueue.push({ num: blk_num, content: data });
                                     return 1;
                                 } else {
                                     if (blk_num === 1) {
-                                        this.stageOneDistQueue.push({num: blk_num, content: data});
+                                        this.stageOneDistQueue.push({ num: blk_num, content: data });
                                         return 1;
                                     } else {
                                         return 0;
@@ -424,7 +424,7 @@ export default class StateReader extends HyperionWorker {
         this.abi = JSON.parse(data);
         this.types = Serialize.getTypesFromAbi(Serialize.createInitialTypes(), this.abi);
         this.abi.tables.map(table => this.tables.set(table.name, table.type));
-        process.send({event: 'init_abi', data: data});
+        process.send({ event: 'init_abi', data: data });
         // console.log('state reader sent first abi!');
         if (!this.conf.indexer.disable_reading) {
             switch (process.env['worker_role']) {
@@ -474,7 +474,7 @@ export default class StateReader extends HyperionWorker {
         const searchBody = {
             query: {
                 bool: {
-                    must: [{range: {block_num: {gte: this_block['block_num'], lte: this.local_block_num}}}]
+                    must: [{ range: { block_num: { gte: this_block['block_num'], lte: this.local_block_num } } }]
                 }
             }
         };
@@ -488,7 +488,7 @@ export default class StateReader extends HyperionWorker {
     }
 
     private async logForkEvent(starting_block, ending_block, new_id) {
-        process.send({event: 'fork_event', data: {starting_block, ending_block, new_id}});
+        process.send({ event: 'fork_event', data: { starting_block, ending_block, new_id } });
         await this.client.index({
             index: this.chain + '-logs',
             body: {
@@ -503,7 +503,7 @@ export default class StateReader extends HyperionWorker {
     }
 
     private ackBlockRange(size: number) {
-        this.send(['get_blocks_ack_request_v0', {num_messages: size}]);
+        this.send(['get_blocks_ack_request_v0', { num_messages: size }]);
     }
 
     private startQueueWatcher() {

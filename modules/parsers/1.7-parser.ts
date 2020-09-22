@@ -1,12 +1,12 @@
-import {BaseParser} from "./base-parser";
+import { BaseParser } from "./base-parser";
 import MainDSWorker from "../../workers/deserializer";
-import {Message} from "amqplib";
+import { Message } from "amqplib";
 import DSPoolWorker from "../../workers/ds-pool";
-import {TrxMetadata} from "../../interfaces/trx-metadata";
-import {ActionTrace} from "../../interfaces/action-trace";
-import {hLog} from "../../helpers/common_functions";
-import {unzip} from "zlib";
-import {omit} from "lodash";
+import { TrxMetadata } from "../../interfaces/trx-metadata";
+import { ActionTrace } from "../../interfaces/action-trace";
+import { hLog } from "../../helpers/common_functions";
+import { unzip } from "zlib";
+import { omit } from "lodash";
 
 async function unzipAsync(data) {
     return new Promise((resolve, reject) => {

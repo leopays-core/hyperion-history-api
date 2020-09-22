@@ -1,6 +1,6 @@
-import {FastifyInstance} from "fastify";
-import {addApiRoute, getRouteName} from "../../../helpers/functions";
-import {getControlledAccountsHandler} from "./get_controlled_accounts";
+import { FastifyInstance } from "fastify";
+import { addApiRoute, getRouteName } from "../../../helpers/functions";
+import { getControlledAccountsHandler } from "./get_controlled_accounts";
 
 export default function (fastify: FastifyInstance, opts: any, next) {
     addApiRoute(fastify, 'POST', getRouteName(__filename), getControlledAccountsHandler, {

@@ -1,12 +1,12 @@
-// nodejs native eosjs
-const {Serialize} = require('../addons/eosjs-native');
-// const {Serialize} = require('eosjs');
+// nodejs native leopaysjs
+const { Serialize } = require('../addons/eosjs-native');
+// const { Serialize } = require('leopaysjs');
 
 // abieos addon
 const abieos = require('@eosrio/node-abieos');
 
-// original eosjs
-// const {Serialize} = require('eosjs');
+// original leopaysjs
+// const { Serialize } = require('leopaysjs');
 
 const zlib = require('zlib');
 const config = require(`../${process.env.CONFIG_JSON}`);
@@ -32,7 +32,7 @@ function deserialize(type, array, txtEnc, txtDec, types) {
     textDecoder: txtDec,
     array,
   });
-  return Serialize.getType(types, type).deserialize(buffer, new Serialize.SerializerState({bytesAsUint8Array: true}));
+  return Serialize.getType(types, type).deserialize(buffer, new Serialize.SerializerState({ bytesAsUint8Array: true }));
 }
 
 function unzipAsync(data) {
@@ -52,8 +52,8 @@ async function getLastIndexedBlock(es_client) {
     index: CHAIN + '-block-*',
     size: 1,
     body: {
-      query: {bool: {filter: {match_all: {}}}},
-      sort: [{block_num: {order: 'desc'}}],
+      query: { bool: { filter: { match_all: {} } } },
+      sort: [{ block_num: { order: 'desc' } }],
       size: 1,
     },
   });
@@ -69,8 +69,8 @@ async function getLastIndexedBlockByDelta(es_client) {
     index: CHAIN + '-delta-*',
     size: 1,
     body: {
-      query: {bool: {filter: {match_all: {}}}},
-      sort: [{block_num: {order: 'desc'}}],
+      query: { bool: { filter: { match_all: {} } } },
+      sort: [{ block_num: { order: 'desc' } }],
       size: 1,
     },
   });
@@ -95,7 +95,7 @@ async function getFirstIndexedBlockFromRange(es_client, first, last) {
           },
         },
       },
-      sort: [{block_num: {order: 'asc'}}],
+      sort: [{ block_num: { order: 'asc' } }],
       size: 1,
     },
   });
@@ -120,7 +120,7 @@ async function getLastIndexedBlockFromRange(es_client, first, last) {
           },
         },
       },
-      sort: [{block_num: {order: 'desc'}}],
+      sort: [{ block_num: { order: 'desc' } }],
       size: 1,
     },
   });
@@ -139,7 +139,7 @@ async function getLastIndexedABI(es_client, first, last) {
       query: {
         match_all: {},
       },
-      sort: [{block: {order: 'desc'}}],
+      sort: [{ block: { order: 'desc' } }],
       size: 1,
     },
   });
@@ -164,7 +164,7 @@ async function getLastIndexedBlockByDeltaFromRange(es_client, first, last) {
           },
         },
       },
-      sort: [{block_num: {order: 'desc'}}],
+      sort: [{ block_num: { order: 'desc' } }],
       size: 1,
     },
   });
@@ -245,7 +245,7 @@ function onSaveAbi(data, abiCacheMap, rClient) {
   } else {
     versionMap = abiCacheMap[data['account']];
     versionMap.push(parseInt(data['block']));
-    versionMap.sort(function(a, b) {
+    versionMap.sort(function (a, b) {
       return a - b;
     });
     versionMap = [...(new Set(versionMap))];

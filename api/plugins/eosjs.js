@@ -1,6 +1,6 @@
 const fp = require('fastify-plugin');
-const {Api} = require("eosjs");
-const {ConnectionManager} = require('../../connections/manager');
+const { Api } = require("leopaysjs");
+const { ConnectionManager } = require('../../connections/manager');
 const manager = new ConnectionManager();
 
 module.exports = fp(async (fastify, options, next) => {
@@ -13,9 +13,9 @@ module.exports = fp(async (fastify, options, next) => {
         textDecoder: new TextDecoder(),
         textEncoder: new TextEncoder(),
     });
-    fastify.decorate('eosjs', {api, rpc});
+    fastify.decorate('leopaysjs', { api, rpc });
     next();
 }, {
     fastify: '>=2.0.0',
-    name: 'fastify-eosjs'
+    name: 'fastify-leopaysjs'
 });

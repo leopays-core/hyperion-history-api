@@ -58,18 +58,18 @@ services:
     depends_on:
       - elasticsearch
 
-  eosio-node:
-    container_name: eosio-node
-    image: eosrio/hyperion:eosio-2.0.5
+  leopays-node:
+    container_name: leopays-node
+    image: leopays/hyperion: -2.0.5
     volumes:
-      - ./eosio/data/:/home/eosio/data/
-      - ./eosio/config/:/home/eosio/config/
-      - ./scripts/:/home/eosio/scripts/
+      - ./leopays/data/:/home/leopays/data/
+      - ./leopays/config/:/home/leopays/config/
+      - ./scripts/:/home/leopays/scripts/
     ports:
       - 8888:8888
     networks:
       - hyperion
-    command: bash -c "/home/eosio/scripts/run-nodeos.sh ${SCRIPT:-false} ${SNAPSHOT:-""}"
+    command: bash -c "/home/leopays/scripts/run-nodeos.sh ${SCRIPT:-false} ${SNAPSHOT:-""}"
 
   hyperion-indexer:
     container_name: hyperion-indexer
@@ -79,7 +79,7 @@ services:
       - elasticsearch
       - redis
       - rabbitmq
-      - eosio-node
+      - leopays-node
     volumes:
       - ./hyperion/config/connections.json:/hyperion-history-api/connections.json
       - ./hyperion/config/ecosystem.config.js:/hyperion-history-api/ecosystem.config.js
@@ -87,7 +87,7 @@ services:
       - ./scripts/:/home/hyperion/scripts/
     networks:
       - hyperion
-    command: bash -c "/home/hyperion/scripts/run-hyperion.sh ${SCRIPT:-false} eos-indexer"
+    command: bash -c "/home/hyperion/scripts/run-hyperion.sh ${SCRIPT:-false} leopays-indexer"
 
   hyperion-api:
     container_name: hyperion-api
@@ -104,7 +104,7 @@ services:
       - ./scripts/:/home/hyperion/scripts/
     networks:
       - hyperion
-    command: bash -c "/home/hyperion/scripts/run-hyperion.sh ${SCRIPT:-false} eos-api"
+    command: bash -c "/home/hyperion/scripts/run-hyperion.sh ${SCRIPT:-false} leopays-api"
 
 networks:
   hyperion:

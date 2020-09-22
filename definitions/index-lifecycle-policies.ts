@@ -1,4 +1,4 @@
-import {IlmPutLifecycle} from "@elastic/elasticsearch/api/requestParams";
+import { IlmPutLifecycle } from "@elastic/elasticsearch/api/requestParams";
 
 export const ILPs: IlmPutLifecycle[] = [
     {

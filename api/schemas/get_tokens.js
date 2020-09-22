@@ -16,18 +16,18 @@ exports.GET = {
         200: {
             type: 'object',
             properties: {
-                "query_time": {type: "number"},
-                "cached": {type: "boolean"},
-                "account": {type: "string"},
+                "query_time": { type: "number" },
+                "cached": { type: "boolean" },
+                "account": { type: "string" },
                 "tokens": {
                     type: "array",
                     items: {
                         type: "object",
                         properties: {
-                            "symbol": {type: "string"},
-                            "precision": {type: "number"},
-                            "amount": {type: "number"},
-                            "contract": {type: "string"}
+                            "symbol": { type: "string" },
+                            "precision": { type: "number" },
+                            "amount": { type: "number" },
+                            "contract": { type: "string" }
                         }
                     }
                 }

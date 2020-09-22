@@ -1,6 +1,6 @@
-import {FastifyInstance} from "fastify";
-import {addApiRoute, extendResponseSchema, getRouteName} from "../../../helpers/functions";
-import {getScheduleHandler} from "./get_schedule";
+import { FastifyInstance } from "fastify";
+import { addApiRoute, extendResponseSchema, getRouteName } from "../../../helpers/functions";
+import { getScheduleHandler } from "./get_schedule";
 
 export default function (fastify: FastifyInstance, opts: any, next) {
     const schema = {
@@ -34,17 +34,17 @@ export default function (fastify: FastifyInstance, opts: any, next) {
             }
         },
         response: extendResponseSchema({
-            "timestamp": {type: "string"},
-            "block_num": {type: "number"},
-            "version": {type: "number"},
+            "timestamp": { type: "string" },
+            "block_num": { type: "number" },
+            "version": { type: "number" },
             "producers": {
                 type: "array",
                 items: {
                     type: "object",
                     properties: {
-                        "producer_name": {type: "string"},
-                        "block_signing_key": {type: "string"},
-                        "legacy_key": {type: "string"}
+                        "producer_name": { type: "string" },
+                        "block_signing_key": { type: "string" },
+                        "legacy_key": { type: "string" }
                     }
                 }
             },

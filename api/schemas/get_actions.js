@@ -1,6 +1,6 @@
 exports.GET = {
     description: 'get actions based on notified account. this endpoint also accepts generic filters based on indexed fields' +
-        ' (e.g. act.authorization.actor=eosio or act.name=delegatebw), if included they will be combined with a AND operator',
+        ' (e.g. act.authorization.actor=lpc or act.name=delegatebw), if included they will be combined with a AND operator',
     summary: 'get root actions',
     tags: ['actions', 'history'],
     querystring: {
@@ -57,15 +57,15 @@ exports.GET = {
                 "query_time": {
                     type: "number"
                 },
-                "cached": {type: "boolean"},
+                "cached": { type: "boolean" },
                 "lib": {
                     type: "number"
                 },
                 "total": {
                     type: "object",
                     properties: {
-                        "value": {type: "number"},
-                        "relation": {type: "string"}
+                        "value": { type: "number" },
+                        "relation": { type: "string" }
                     }
                 },
                 "simple_actions": {
@@ -73,14 +73,14 @@ exports.GET = {
                     items: {
                         type: "object",
                         properties: {
-                            "block": {type: "number"},
-                            "timestamp": {type: "string"},
-                            "irreversible": {type: "boolean"},
-                            "contract": {type: "string"},
-                            "action": {type: "string"},
-                            "actors": {type: "string"},
-                            "notified": {type: "string"},
-                            "transaction_id": {type: "string"},
+                            "block": { type: "number" },
+                            "timestamp": { type: "string" },
+                            "irreversible": { type: "boolean" },
+                            "contract": { type: "string" },
+                            "action": { type: "string" },
+                            "actors": { type: "string" },
+                            "notified": { type: "string" },
+                            "transaction_id": { type: "string" },
                             "data": {
                                 additionalProperties: true
                             }
@@ -95,34 +95,34 @@ exports.GET = {
                             "act": {
                                 type: 'object',
                                 properties: {
-                                    "account": {type: "string"},
-                                    "name": {type: "string"}
+                                    "account": { type: "string" },
+                                    "name": { type: "string" }
                                 },
                                 additionalProperties: true
                             },
-                            "cpu_usage_us": {type: "number"},
-                            "net_usage_words": {type: "number"},
+                            "cpu_usage_us": { type: "number" },
+                            "net_usage_words": { type: "number" },
                             "account_ram_deltas": {
                                 type: "array",
                                 items: {
                                     type: "object",
                                     properties: {
-                                        "account": {type: "string"},
-                                        "delta": {type: "number"}
+                                        "account": { type: "string" },
+                                        "delta": { type: "number" }
                                     },
                                     additionalProperties: true
                                 }
                             },
-                            "global_sequence": {type: "number"},
-                            "receiver": {type: 'string'},
-                            "@timestamp": {type: "string"},
-                            "block_num": {type: "number"},
-                            "producer": {type: "string"},
-                            "trx_id": {type: "string"},
-                            "parent": {type: "number"},
-                            "action_ordinal": {type: 'number'},
-                            "creator_action_ordinal": {type: 'number'},
-                            "notified": {type: "array", items: {type: "string"}}
+                            "global_sequence": { type: "number" },
+                            "receiver": { type: 'string' },
+                            "@timestamp": { type: "string" },
+                            "block_num": { type: "number" },
+                            "producer": { type: "string" },
+                            "trx_id": { type: "string" },
+                            "parent": { type: "number" },
+                            "action_ordinal": { type: 'number' },
+                            "creator_action_ordinal": { type: 'number' },
+                            "notified": { type: "array", items: { type: "string" } }
                         }
                     }
                 }

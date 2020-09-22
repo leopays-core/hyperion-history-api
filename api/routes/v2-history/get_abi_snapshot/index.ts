@@ -1,6 +1,6 @@
-import {FastifyInstance} from "fastify";
-import {addApiRoute, getRouteName} from "../../../helpers/functions";
-import {getAbiSnapshotHandler} from "./get_abi_snapshot";
+import { FastifyInstance } from "fastify";
+import { addApiRoute, getRouteName } from "../../../helpers/functions";
+import { getAbiSnapshotHandler } from "./get_abi_snapshot";
 
 export default function (fastify: FastifyInstance, opts: any, next) {
     const schema = {

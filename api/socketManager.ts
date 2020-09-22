@@ -1,7 +1,7 @@
-import {checkFilter, hLog} from '../helpers/common_functions';
+import { checkFilter, hLog } from '../helpers/common_functions';
 import * as sockets from 'socket.io';
 import * as IOClient from 'socket.io-client';
-import {FastifyInstance} from "fastify";
+import { FastifyInstance } from "fastify";
 
 export interface StreamDeltasRequest {
     code: string;
@@ -34,25 +34,25 @@ async function addBlockRangeOpts(data, search_body, fastify: FastifyInstance) {
 
     if (typeof data['start_from'] === 'string' && data['start_from'] !== '') {
         if (!timeRange) {
-            timeRange = {"@timestamp": {}};
+            timeRange = { "@timestamp": {} };
         }
         timeRange["@timestamp"]['gte'] = data['start_from'];
     }
 
     if (typeof data['read_until'] === 'string' && data['read_until'] !== '') {
         if (!timeRange) {
-            timeRange = {"@timestamp": {}};
+            timeRange = { "@timestamp": {} };
         }
         timeRange["@timestamp"]['lte'] = data['read_until'];
     }
 
     if (typeof data['start_from'] === 'number' && data['start_from'] !== 0) {
         if (!blockRange) {
-            blockRange = {"block_num": {}};
+            blockRange = { "block_num": {} };
         }
         if (data['start_from'] < 0) {
             if (!head) {
-                head = (await fastify.eosjs.rpc.get_info()).head_block_num;
+                head = (await fastify.leopaysjs.rpc.get_info()).head_block_num;
             }
             blockRange["block_num"]['gte'] = head + data['start_from'];
         } else {
@@ -62,11 +62,11 @@ async function addBlockRangeOpts(data, search_body, fastify: FastifyInstance) {
 
     if (typeof data['read_until'] === 'number' && data['read_until'] !== 0) {
         if (!blockRange) {
-            blockRange = {"block_num": {}};
+            blockRange = { "block_num": {} };
         }
         if (data['read_until'] < 0) {
             if (!head) {
-                head = (await fastify.eosjs.rpc.get_info()).head_block_num;
+                head = (await fastify.leopaysjs.rpc.get_info()).head_block_num;
             }
             blockRange["block_num"]['lte'] = head + data['read_until'];
         } else {
@@ -90,7 +90,7 @@ function addTermMatch(data, search_body, field) {
     if (data[field] !== '*' && data[field] !== '') {
         const termQuery = {};
         termQuery[field] = data[field];
-        search_body.query.bool.must.push({'term': termQuery});
+        search_body.query.bool.must.push({ 'term': termQuery });
     }
 }
 
@@ -98,8 +98,8 @@ const deltaQueryFields = ['code', 'table', 'scope', 'payer'];
 
 async function streamPastDeltas(fastify: FastifyInstance, socket, data) {
     const search_body = {
-        query: {bool: {must: []}},
-        sort: {block_num: 'asc'},
+        query: { bool: { must: [] } },
+        sort: { block_num: 'asc' },
     };
     await addBlockRangeOpts(data, search_body, fastify);
     deltaQueryFields.forEach(f => {
@@ -115,7 +115,7 @@ async function streamPastDeltas(fastify: FastifyInstance, socket, data) {
     });
     responseQueue.push(init_response);
     while (responseQueue.length) {
-        const {body} = responseQueue.shift();
+        const { body } = responseQueue.shift();
         counter += body['hits']['hits'].length;
         if (socket.connected) {
             socket.emit('message', {
@@ -141,8 +141,8 @@ async function streamPastDeltas(fastify: FastifyInstance, socket, data) {
 
 async function streamPastActions(fastify: FastifyInstance, socket, data) {
     const search_body = {
-        query: {bool: {must: []}},
-        sort: {global_sequence: 'asc'},
+        query: { bool: { must: [] } },
+        sort: { global_sequence: 'asc' },
     };
 
     await addBlockRangeOpts(data, search_body, fastify);
@@ -151,19 +151,19 @@ async function streamPastActions(fastify: FastifyInstance, socket, data) {
         search_body.query.bool.must.push({
             bool: {
                 should: [
-                    {term: {'notified': data.account}},
-                    {term: {'act.authorization.actor': data.account}},
+                    { term: { 'notified': data.account } },
+                    { term: { 'act.authorization.actor': data.account } },
                 ],
             },
         });
     }
 
     if (data.contract !== '*' && data.contract !== '') {
-        search_body.query.bool.must.push({'term': {'act.account': data.contract}});
+        search_body.query.bool.must.push({ 'term': { 'act.account': data.contract } });
     }
 
     if (data.action !== '*' && data.action !== '') {
-        search_body.query.bool.must.push({'term': {'act.name': data.action}});
+        search_body.query.bool.must.push({ 'term': { 'act.name': data.action } });
     }
 
     const onDemandFilters = [];
@@ -173,7 +173,7 @@ async function streamPastActions(fastify: FastifyInstance, socket, data) {
                 if (f.field.startsWith('@') && !f.field.startsWith('act.data')) {
                     const _q = {};
                     _q[f.field] = f.value;
-                    search_body.query.bool.must.push({'term': _q});
+                    search_body.query.bool.must.push({ 'term': _q });
                 } else {
                     onDemandFilters.push(f);
                 }
@@ -194,7 +194,7 @@ async function streamPastActions(fastify: FastifyInstance, socket, data) {
     responseQueue.push(init_response);
 
     while (responseQueue.length) {
-        const {body} = responseQueue.shift();
+        const { body } = responseQueue.shift();
         const enqueuedMessages = [];
         counter += body['hits']['hits'].length;
 
@@ -309,7 +309,7 @@ export class SocketManager {
     startRelay() {
         console.log(`starting relay - ${this.url}`);
 
-        this.relay = IOClient(this.url, {path: '/router'});
+        this.relay = IOClient(this.url, { path: '/router' });
 
         this.relay.on('connect', () => {
             console.log('Relay Connected!');

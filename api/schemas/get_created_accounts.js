@@ -23,8 +23,8 @@ exports.GET = {
                 "total": {
                     type: "object",
                     properties: {
-                        "value": {type: "number"},
-                        "relation": {type: "string"}
+                        "value": { type: "number" },
+                        "relation": { type: "string" }
                     }
                 },
                 "accounts": {
@@ -32,9 +32,9 @@ exports.GET = {
                     items: {
                         type: 'object',
                         properties: {
-                            'name': {type: 'string'},
-                            'timestamp': {type: 'string'},
-                            'trx_id': {type: 'string'}
+                            'name': { type: 'string' },
+                            'timestamp': { type: 'string' },
+                            'trx_id': { type: 'string' }
                         }
                     }
                 }

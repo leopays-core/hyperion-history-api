@@ -8,8 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    var _ = { label: 0, sent: function () { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function () { return this; }), g;
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
@@ -50,7 +50,7 @@ var transaction = {
     context_free_actions: [],
     actions: [
         {
-            account: 'testeostoken',
+            account: 'testlpctoken',
             name: 'transfer',
             authorization: [
                 {
@@ -61,13 +61,13 @@ var transaction = {
             data: {
                 from: 'thegazelle',
                 to: 'remasteryoda',
-                quantity: '1.0000 EOS',
+                quantity: '1.0000 LPC',
                 memo: 'For a secure future.',
             },
             hex_data: "00808a517dc354cb6012f557656ca4ba102700000000000004454f530000000014466f722\n        06120736563757265206675747572652e",
         },
         {
-            account: 'testeostoken',
+            account: 'testlpctoken',
             name: 'transfer',
             authorization: [
                 {
@@ -78,7 +78,7 @@ var transaction = {
             data: {
                 from: 'thegazelle',
                 to: 'remasteryoda',
-                quantity: '2.0000 EOS',
+                quantity: '2.0000 LPC',
                 memo: 'For a second secure future (multiverse?)',
             },
             hex_data: "00808a517dc354cb6012f557656ca4ba204e00000000000004454f530000000028466f722061207365636f6e642073656\n        37572652066757475726520286d756c746976657273653f29",
@@ -96,13 +96,13 @@ var serializedTx = [
 var deserializedTx = {
     actions: [
         {
-            account: 'testeostoken',
+            account: 'testlpctoken',
             authorization: [{ actor: 'thegazelle', permission: 'active' }],
             data: '',
             name: 'transfer',
         },
         {
-            account: 'testeostoken',
+            account: 'testlpctoken',
             authorization: [{ actor: 'thegazelle', permission: 'active' }],
             data: '',
             name: 'transfer',
@@ -119,13 +119,13 @@ var deserializedTx = {
 };
 var serializedActions = [
     {
-        account: 'testeostoken',
+        account: 'testlpctoken',
         authorization: [{ actor: 'thegazelle', permission: 'active' }],
         data: "00808A517DC354CB6012F557656CA4BA102700000000000004454F530000000014466F72206120736563757265206675747572652E",
         name: 'transfer',
     },
     {
-        account: 'testeostoken',
+        account: 'testlpctoken',
         authorization: [{ actor: 'thegazelle', permission: 'active' }],
         data: "00808A517DC354CB6012F557656CA4BA204E00000000000004454F530000000028466F722061207365636F6E64207365637572652066757475726520286D756C746976657273653F29",
         name: 'transfer',
@@ -133,49 +133,53 @@ var serializedActions = [
 ];
 var deserializedActions = [
     {
-        account: 'testeostoken',
+        account: 'testlpctoken',
         authorization: [{ actor: 'thegazelle', permission: 'active' }],
         data: {
             from: 'thegazelle',
             memo: 'For a secure future.',
-            quantity: '1.0000 EOS',
+            quantity: '1.0000 LPC',
             to: 'remasteryoda',
         },
         name: 'transfer',
     },
     {
-        account: 'testeostoken',
+        account: 'testlpctoken',
         authorization: [{ actor: 'thegazelle', permission: 'active' }],
         data: {
             from: 'thegazelle',
             memo: 'For a second secure future (multiverse?)',
-            quantity: '2.0000 EOS',
+            quantity: '2.0000 LPC',
             to: 'remasteryoda',
         },
         name: 'transfer',
     },
 ];
-describe('eosjs-api', function () {
+describe('leopaysjs-api', function () {
     var api;
-    var fetch = function (input, init) { return __awaiter(_this, void 0, void 0, function () {
-        var _this = this;
-        return __generator(this, function (_a) {
-            return [2 /*return*/, ({
+    var fetch = function (input, init) {
+        return __awaiter(_this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, ({
                     ok: true,
-                    json: function () { return __awaiter(_this, void 0, void 0, function () {
-                        return __generator(this, function (_a) {
-                            if (input === '/v1/chain/get_raw_code_and_abi') {
-                                return [2 /*return*/, {
-                                        account_name: 'testeostoken',
+                    json: function () {
+                        return __awaiter(_this, void 0, void 0, function () {
+                            return __generator(this, function (_a) {
+                                if (input === '/v1/chain/get_raw_code_and_abi') {
+                                    return [2 /*return*/, {
+                                        account_name: 'testlpctoken',
                                         abi: "DmVvc2lvOjphYmkvMS4wAQxhY2NvdW50X25hbWUEbmFtZQUIdHJhbnNmZXIABARmcm9tDGFjY291bnRfbmFtZQJ0bwxhY2NvdW50X25hbWUIcXVhbnRpdHkFYXNzZXQEbWVtbwZzdHJpbmcGY3JlYXRlAAIGaXNzdWVyDGFjY291bnRfbmFtZQ5tYXhpbXVtX3N1cHBseQVhc3NldAVpc3N1ZQADAnRvDGFjY291bnRfbmFtZQhxdWFudGl0eQVhc3NldARtZW1vBnN0cmluZwdhY2NvdW50AAEHYmFsYW5jZQVhc3NldA5jdXJyZW5jeV9zdGF0cwADBnN1cHBseQVhc3NldAptYXhfc3VwcGx5BWFzc2V0Bmlzc3VlcgxhY2NvdW50X25hbWUDAAAAVy08zc0IdHJhbnNmZXLnBSMjIFRyYW5zZmVyIFRlcm1zICYgQ29uZGl0aW9ucwoKSSwge3tmcm9tfX0sIGNlcnRpZnkgdGhlIGZvbGxvd2luZyB0byBiZSB0cnVlIHRvIHRoZSBiZXN0IG9mIG15IGtub3dsZWRnZToKCjEuIEkgY2VydGlmeSB0aGF0IHt7cXVhbnRpdHl9fSBpcyBub3QgdGhlIHByb2NlZWRzIG9mIGZyYXVkdWxlbnQgb3IgdmlvbGVudCBhY3Rpdml0aWVzLgoyLiBJIGNlcnRpZnkgdGhhdCwgdG8gdGhlIGJlc3Qgb2YgbXkga25vd2xlZGdlLCB7e3RvfX0gaXMgbm90IHN1cHBvcnRpbmcgaW5pdGlhdGlvbiBvZiB2aW9sZW5jZSBhZ2FpbnN0IG90aGVycy4KMy4gSSBoYXZlIGRpc2Nsb3NlZCBhbnkgY29udHJhY3R1YWwgdGVybXMgJiBjb25kaXRpb25zIHdpdGggcmVzcGVjdCB0byB7e3F1YW50aXR5fX0gdG8ge3t0b319LgoKSSB1bmRlcnN0YW5kIHRoYXQgZnVuZHMgdHJhbnNmZXJzIGFyZSBub3QgcmV2ZXJzaWJsZSBhZnRlciB0aGUge3t0cmFuc2FjdGlvbi5kZWxheX19IHNlY29uZHMgb3Igb3RoZXIgZGVsYXkgYXMgY29uZmlndXJlZCBieSB7e2Zyb219fSdzIHBlcm1pc3Npb25zLgoKSWYgdGhpcyBhY3Rpb24gZmFpbHMgdG8gYmUgaXJyZXZlcnNpYmx5IGNvbmZpcm1lZCBhZnRlciByZWNlaXZpbmcgZ29vZHMgb3Igc2VydmljZXMgZnJvbSAne3t0b319JywgSSBhZ3JlZSB0byBlaXRoZXIgcmV0dXJuIHRoZSBnb29kcyBvciBzZXJ2aWNlcyBvciByZXNlbmQge3txdWFudGl0eX19IGluIGEgdGltZWx5IG1hbm5lci4KAAAAAAClMXYFaXNzdWUAAAAAAKhs1EUGY3JlYXRlAAIAAAA4T00RMgNpNjQBCGN1cnJlbmN5AQZ1aW50NjQHYWNjb3VudAAAAAAAkE3GA2k2NAEIY3VycmVuY3kBBnVpbnQ2NA5jdXJyZW5jeV9zdGF0cwAAAA===",
                                     }];
-                            }
-                            return [2 /*return*/, transaction];
+                                }
+                                return [2 /*return*/, transaction];
+                            });
                         });
-                    }); },
+                    },
                 })];
+            });
         });
-    }); };
+    };
     beforeEach(function () {
         var rpc = new eosjs_jsonrpc_1.JsonRpc('', { fetch: fetch });
         var signatureProvider = new eosjs_jssig_1.JsSignatureProvider(['5JtUScZK2XEp3g9gh7F8bwtPTRAkASmNrrftmx4AxDKD5K4zDnr']);
@@ -187,70 +191,80 @@ describe('eosjs-api', function () {
     it('Doesnt crash', function () {
         expect(api).toBeTruthy();
     });
-    it('getAbi returns an abi', function () { return __awaiter(_this, void 0, void 0, function () {
-        var response;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, api.getAbi('testeostoken')];
-                case 1:
-                    response = _a.sent();
-                    expect(response).toBeTruthy();
-                    return [2 /*return*/];
-            }
+    it('getAbi returns an abi', function () {
+        return __awaiter(_this, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, api.getAbi('testlpctoken')];
+                    case 1:
+                        response = _a.sent();
+                        expect(response).toBeTruthy();
+                        return [2 /*return*/];
+                }
+            });
         });
-    }); });
-    it('getTransactionAbis returns abis by transactions', function () { return __awaiter(_this, void 0, void 0, function () {
-        var response;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, api.getTransactionAbis(transaction)];
-                case 1:
-                    response = _a.sent();
-                    expect(response[0].abi.length).toBeGreaterThan(0);
-                    return [2 /*return*/];
-            }
+    });
+    it('getTransactionAbis returns abis by transactions', function () {
+        return __awaiter(_this, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, api.getTransactionAbis(transaction)];
+                    case 1:
+                        response = _a.sent();
+                        expect(response[0].abi.length).toBeGreaterThan(0);
+                        return [2 /*return*/];
+                }
+            });
         });
-    }); });
-    it('getContract returns a contract', function () { return __awaiter(_this, void 0, void 0, function () {
-        var response;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, api.getContract('testeostoken')];
-                case 1:
-                    response = _a.sent();
-                    expect(response.actions).toBeTruthy();
-                    return [2 /*return*/];
-            }
+    });
+    it('getContract returns a contract', function () {
+        return __awaiter(_this, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, api.getContract('testlpctoken')];
+                    case 1:
+                        response = _a.sent();
+                        expect(response.actions).toBeTruthy();
+                        return [2 /*return*/];
+                }
+            });
         });
-    }); });
+    });
     it('deserializeTransaction converts tx from binary', function () {
         var tx = api.deserializeTransaction(serializedTx);
         expect(tx).toEqual(deserializedTx);
     });
-    it('serializeActions converts actions to hex', function () { return __awaiter(_this, void 0, void 0, function () {
-        var response;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, api.serializeActions(transaction.actions)];
-                case 1:
-                    response = _a.sent();
-                    expect(response).toEqual(serializedActions);
-                    return [2 /*return*/];
-            }
+    it('serializeActions converts actions to hex', function () {
+        return __awaiter(_this, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, api.serializeActions(transaction.actions)];
+                    case 1:
+                        response = _a.sent();
+                        expect(response).toEqual(serializedActions);
+                        return [2 /*return*/];
+                }
+            });
         });
-    }); });
-    it('deserializeActions converts actions from hex', function () { return __awaiter(_this, void 0, void 0, function () {
-        var response;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, api.deserializeActions(serializedActions)];
-                case 1:
-                    response = _a.sent();
-                    expect(response).toEqual(deserializedActions);
-                    return [2 /*return*/];
-            }
+    });
+    it('deserializeActions converts actions from hex', function () {
+        return __awaiter(_this, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, api.deserializeActions(serializedActions)];
+                    case 1:
+                        response = _a.sent();
+                        expect(response).toEqual(deserializedActions);
+                        return [2 /*return*/];
+                }
+            });
         });
-    }); });
+    });
     it('hasRequiredTaposFields returns true, if required fields are present', function () {
         var response = api.hasRequiredTaposFields(transaction);
         expect(response).toEqual(true);

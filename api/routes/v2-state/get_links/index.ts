@@ -1,6 +1,6 @@
-import {FastifyInstance} from "fastify";
-import {addApiRoute, extendResponseSchema, getRouteName} from "../../../helpers/functions";
-import {getLinksHandler} from "./get_links";
+import { FastifyInstance } from "fastify";
+import { addApiRoute, extendResponseSchema, getRouteName } from "../../../helpers/functions";
+import { getLinksHandler } from "./get_links";
 
 export default function (fastify: FastifyInstance, opts: any, next) {
     const schema = {
@@ -34,13 +34,13 @@ export default function (fastify: FastifyInstance, opts: any, next) {
                 items: {
                     type: "object",
                     properties: {
-                        "block_num": {type: "number"},
-                        "timestamp": {type: "string"},
-                        "account": {type: "string"},
-                        "permission": {type: "string"},
-                        "code": {type: "string"},
-                        "action": {type: "string"},
-                        "irreversible": {type: "boolean"}
+                        "block_num": { type: "number" },
+                        "timestamp": { type: "string" },
+                        "account": { type: "string" },
+                        "permission": { type: "string" },
+                        "code": { type: "string" },
+                        "action": { type: "string" },
+                        "irreversible": { type: "boolean" }
                     }
                 }
             },

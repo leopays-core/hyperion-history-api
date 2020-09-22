@@ -1,6 +1,6 @@
-import {FastifyInstance, RouteSchema} from "fastify";
-import {getCreatorHandler} from "./get_creator";
-import {addApiRoute, extendResponseSchema, getRouteName} from "../../../helpers/functions";
+import { FastifyInstance, RouteSchema } from "fastify";
+import { getCreatorHandler } from "./get_creator";
+import { addApiRoute, extendResponseSchema, getRouteName } from "../../../helpers/functions";
 
 export default function (fastify: FastifyInstance, opts: any, next) {
     const schema: RouteSchema = {

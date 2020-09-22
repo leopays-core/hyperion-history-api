@@ -10,7 +10,7 @@ var __read = (this && this.__read) || function (o, n) {
     try {
         while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
     } catch (error) {
-        e = {error: error};
+        e = { error: error };
     } finally {
         try {
             if (r && !r.done && (m = i["return"])) m.call(i);
@@ -30,11 +30,11 @@ var __values = (this && this.__values) || function (o) {
     return {
         next: function () {
             if (o && i >= o.length) o = void 0;
-            return {value: o && o[i++], done: !o};
+            return { value: o && o[i++], done: !o };
         }
     };
 };
-Object.defineProperty(exports, "__esModule", {value: true});
+Object.defineProperty(exports, "__esModule", { value: true });
 // const ripemd160 = require('./ripemd').RIPEMD160.hash as (a: Uint8Array) => ArrayBuffer;
 var crypto = require('crypto');
 
@@ -329,7 +329,7 @@ function digestSuffixRipemd160(data, suffix) {
 
 function stringToKey(s, type, size, suffix) {
     var whole = base58ToBinary(size + 4, s);
-    var result = {type: type, data: new Uint8Array(whole.buffer, 0, size)};
+    var result = { type: type, data: new Uint8Array(whole.buffer, 0, size) };
     var digest = new Uint8Array(digestSuffixRipemd160(result.data, suffix));
     if (digest[0] !== whole[size + 0] || digest[1] !== whole[size + 1]
         || digest[2] !== whole[size + 2] || digest[3] !== whole[size + 3]) {
@@ -355,9 +355,9 @@ function stringToPublicKey(s) {
     if (typeof s !== 'string') {
         throw new Error('expected string containing public key');
     }
-    if (s.substr(0, 3) === 'EOS') {
+    if (s.substr(0, 3) === 'LPC') {
         var whole = base58ToBinary(exports.publicKeyDataSize + 4, s.substr(3));
-        var key = {type: KeyType.k1, data: new Uint8Array(exports.publicKeyDataSize)};
+        var key = { type: KeyType.k1, data: new Uint8Array(exports.publicKeyDataSize) };
         for (var i = 0; i < exports.publicKeyDataSize; ++i) {
             key.data[i] = whole[i];
         }
@@ -391,11 +391,11 @@ function publicKeyToString(key) {
 
 exports.publicKeyToString = publicKeyToString;
 
-/** If a key is in the legacy format (`EOS` prefix), then convert it to the new format (`PUB_K1_`).
+/** If a key is in the legacy format (`LPC` prefix), then convert it to the new format (`PUB_K1_`).
  * Leaves other formats untouched
  */
 function convertLegacyPublicKey(s) {
-    if (s.substr(0, 3) === 'EOS') {
+    if (s.substr(0, 3) === 'LPC') {
         return publicKeyToString(stringToPublicKey(s));
     }
     return s;
@@ -403,7 +403,7 @@ function convertLegacyPublicKey(s) {
 
 exports.convertLegacyPublicKey = convertLegacyPublicKey;
 
-/** If a key is in the legacy format (`EOS` prefix), then convert it to the new format (`PUB_K1_`).
+/** If a key is in the legacy format (`LPC` prefix), then convert it to the new format (`PUB_K1_`).
  * Leaves other formats untouched
  */
 function convertLegacyPublicKeys(keys) {

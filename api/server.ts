@@ -1,18 +1,18 @@
-import {hLog} from "../helpers/common_functions";
-import {ConfigurationModule} from "../modules/config";
-import {ConnectionManager} from "../connections/manager.class";
-import {HyperionConfig} from "../interfaces/hyperionConfig";
-import {IncomingMessage, Server, ServerResponse} from "http";
+import { hLog } from "../helpers/common_functions";
+import { ConfigurationModule } from "../modules/config";
+import { ConnectionManager } from "../connections/manager.class";
+import { HyperionConfig } from "../interfaces/hyperionConfig";
+import { IncomingMessage, Server, ServerResponse } from "http";
 import * as Fastify from 'fastify';
 import * as Redis from 'ioredis';
-import {registerPlugins} from "./plugins";
-import {AddressInfo} from "net";
-import {registerRoutes} from "./routes";
-import {generateOpenApiConfig} from "./config/open_api";
-import {createWriteStream, existsSync, mkdirSync, writeFileSync} from "fs";
-import {SocketManager} from "./socketManager";
+import { registerPlugins } from "./plugins";
+import { AddressInfo } from "net";
+import { registerRoutes } from "./routes";
+import { generateOpenApiConfig } from "./config/open_api";
+import { createWriteStream, existsSync, mkdirSync, writeFileSync } from "fs";
+import { SocketManager } from "./socketManager";
 import got from "got";
-import {join} from "path";
+import { join } from "path";
 import * as io from 'socket.io-client';
 
 class HyperionApiServer {
@@ -35,7 +35,7 @@ class HyperionApiServer {
         this.manager.getHyperionVersion();
 
         if (!existsSync('./logs/' + this.chain)) {
-            mkdirSync('./logs/' + this.chain, {recursive: true});
+            mkdirSync('./logs/' + this.chain, { recursive: true });
         }
 
         const logStream = createWriteStream('./logs/' + this.chain + '/api.access.log');
@@ -96,7 +96,7 @@ class HyperionApiServer {
             fastify_oas: generateOpenApiConfig(this.manager.config),
             fastify_rate_limit: api_rate_limit,
             fastify_redis: this.manager.conn.redis,
-            fastify_eosjs: this.manager,
+            fastify_leopaysjs: this.manager,
         });
 
         this.addGenericTypeParsing();

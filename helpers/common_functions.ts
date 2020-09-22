@@ -1,7 +1,7 @@
-import {ApiResponse, Client} from "@elastic/elasticsearch";
-import {Serialize} from "../addons/eosjs-native";
-import {existsSync} from "fs";
-import {join} from "path";
+import { ApiResponse, Client } from "@elastic/elasticsearch";
+import { Serialize } from "../addons/eosjs-native";
+import { existsSync } from "fs";
+import { join } from "path";
 
 let config;
 const conf_path = join(__dirname, `../${process.env.CONFIG_JSON}`);
@@ -32,8 +32,8 @@ export async function getLastIndexedBlockByDelta(es_client: Client, chain: strin
         index: chain + '-delta-*',
         size: 1,
         body: {
-            query: {bool: {filter: {match_all: {}}}},
-            sort: [{block_num: {order: "desc"}}]
+            query: { bool: { filter: { match_all: {} } } },
+            sort: [{ block_num: { order: "desc" } }]
         }
     });
     return getLastResult(results);
@@ -44,8 +44,8 @@ export async function getLastIndexedBlock(es_client: Client, chain: string) {
         index: chain + '-block-*',
         size: 1,
         body: {
-            query: {bool: {filter: {match_all: {}}}},
-            sort: [{block_num: {order: "desc"}}]
+            query: { bool: { filter: { match_all: {} } } },
+            sort: [{ block_num: { order: "desc" } }]
         }
     });
     return getLastResult(results);
@@ -56,8 +56,8 @@ export async function getLastIndexedBlockWithTotalBlocks(es_client: Client, chai
         index: chain + '-block-*',
         size: 1,
         body: {
-            query: {bool: {filter: {match_all: {}}}},
-            sort: [{block_num: {order: "desc"}}],
+            query: { bool: { filter: { match_all: {} } } },
+            sort: [{ block_num: { order: "desc" } }],
             track_total_hits: true
         }
     });
@@ -75,7 +75,7 @@ export async function getLastIndexedABI(es_client: Client, chain: string) {
             query: {
                 match_all: {}
             },
-            sort: [{block: {order: "desc"}}]
+            sort: [{ block: { order: "desc" } }]
         }
     });
     return getLastResult(results);
@@ -95,7 +95,7 @@ export async function getLastIndexedBlockByDeltaFromRange(es_client: Client, cha
                     }
                 }
             },
-            sort: [{block_num: {order: "desc"}}]
+            sort: [{ block_num: { order: "desc" } }]
         }
     });
     return getLastResult(results);
@@ -115,7 +115,7 @@ export async function getLastIndexedBlockFromRange(es_client: Client, chain: str
                     }
                 }
             },
-            sort: [{block_num: {order: "desc"}}]
+            sort: [{ block_num: { order: "desc" } }]
         }
     });
     return getLastResult(results);
@@ -145,7 +145,7 @@ export function deserialize(type, array, txtEnc, txtDec, types) {
         textDecoder: txtDec,
         array
     });
-    return Serialize.getType(types, type).deserialize(buffer, new Serialize.SerializerState({bytesAsUint8Array: true}));
+    return Serialize.getType(types, type).deserialize(buffer, new Serialize.SerializerState({ bytesAsUint8Array: true }));
 }
 
 function getNested(path_array, jsonObj) {

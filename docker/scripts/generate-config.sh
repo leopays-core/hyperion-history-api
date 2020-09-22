@@ -75,11 +75,11 @@ sed -i "s/127.0.0.1:9200/elasticsearch:9200/" $file
 
 sed -i 's/"host": "127.0.0.1"/"host": "redis"/' $file
 
-sed -i "s/eos/$chain/" $file
-sed -i "s/EOS Mainnet/$chain_name/" $file
+sed -i "s/leopays/$chain/" $file
+sed -i "s/LeoPays Mainnet/$chain_name/" $file
 sed -i "s/aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906/$chain_id/" $file
-sed -i "s/127.0.0.1:8888/eosio-node:8888/" $file
-sed -i "s/127.0.0.1:8080/eosio-node:8080/" $file
+sed -i "s/127.0.0.1:8888/leopays-node:8888/" $file
+sed -i "s/127.0.0.1:8080/leopays-node:8080/" $file
 sed -i "s/127.0.0.1/hyperion-api/" $file
 
 # prepare connection.json file
@@ -91,7 +91,7 @@ fi
 
 cp ../example-ecosystem.config.js $file
 
-sed -i "s/eos/$chain/" $file
+sed -i "s/leopays/$chain/" $file
 
 # prepare connection.json file
 file=hyperion/config/chains/$chain.config.json
@@ -104,7 +104,7 @@ cp ../chains/example.config.json $file
 
 sed -i "s/EXAMPLE Chain/$chain_name/" $file
 sed -i "s/127.0.0.1/hyperion-api/g" $file
-sed -i "s/\"chain\": \"eos\"/\"chain\": \"$chain\"/" $file
+sed -i "s/\"chain\": \"leopays\"/\"chain\": \"$chain\"/" $file
 sed -i 's/"start_on": 0/"start_on": 1/' $file
 sed -i 's/"live_reader": false/"live_reader": true/' $file
 sed -i 's/"abi_scan_mode": true/"abi_scan_mode": false/' $file

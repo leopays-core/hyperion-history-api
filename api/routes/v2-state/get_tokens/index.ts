@@ -1,6 +1,6 @@
-import {FastifyInstance} from "fastify";
-import {addApiRoute, extendQueryStringSchema, getRouteName} from "../../../helpers/functions";
-import {getTokensHandler} from "./get_tokens";
+import { FastifyInstance } from "fastify";
+import { addApiRoute, extendQueryStringSchema, getRouteName } from "../../../helpers/functions";
+import { getTokensHandler } from "./get_tokens";
 
 export default function (fastify: FastifyInstance, opts: any, next) {
     const schema = {

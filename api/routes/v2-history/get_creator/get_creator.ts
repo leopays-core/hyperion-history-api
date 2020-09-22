@@ -1,6 +1,6 @@
-import {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
-import {ServerResponse} from "http";
-import {timedQuery} from "../../../helpers/functions";
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { ServerResponse } from "http";
+import { timedQuery } from "../../../helpers/functions";
 
 async function getCreator(fastify: FastifyInstance, request: FastifyRequest) {
 
@@ -18,7 +18,7 @@ async function getCreator(fastify: FastifyInstance, request: FastifyRequest) {
             size: 1,
             query: {
                 bool: {
-                    must: [{term: {"@newaccount.newact": request.query.account}}]
+                    must: [{ term: { "@newaccount.newact": request.query.account } }]
                 }
             }
         }

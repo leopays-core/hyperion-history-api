@@ -1,15 +1,15 @@
-const {getCacheByHash} = require("../../helpers/functions");
+const { getCacheByHash } = require("../../helpers/functions");
 
-const {getTransactedAccountsSchema} = require("../../schemas");
+const { getTransactedAccountsSchema } = require("../../schemas");
 
 async function getTransactedAccounts(fastify, request) {
     const t0 = Date.now();
-    const {redis, elastic} = fastify;
+    const { redis, elastic } = fastify;
     const [cachedResponse, hash] = await getCacheByHash(redis, JSON.stringify(request.query));
     if (cachedResponse) {
         return cachedResponse;
     }
-    const {account, min, max, direction, limit, contract, symbol} = request.query;
+    const { account, min, max, direction, limit, contract, symbol } = request.query;
     let _limit = 100;
     if (limit) {
         _limit = parseInt(limit, 10);
@@ -38,8 +38,8 @@ async function getTransactedAccounts(fastify, request) {
     };
 
     const must_array = [
-        {term: {"notified": account}},
-        {term: {"act.name": "transfer"}}
+        { term: { "notified": account } },
+        { term: { "act.name": "transfer" } }
     ];
 
     if (min || max) {
@@ -52,16 +52,16 @@ async function getTransactedAccounts(fastify, request) {
         if (max) {
             _range["@transfer.amount"]["lt"] = _max;
         }
-        must_array.push({range: _range});
+        must_array.push({ range: _range });
     }
 
     if (contract) {
-        must_array.push({term: {"act.account": contract}});
+        must_array.push({ term: { "act.account": contract } });
         response['contract'] = contract;
     }
 
     if (symbol) {
-        must_array.push({term: {"@transfer.symbol": symbol}});
+        must_array.push({ term: { "@transfer.symbol": symbol } });
         response['symbol'] = symbol;
     }
 
@@ -123,7 +123,7 @@ async function getTransactedAccounts(fastify, request) {
                         must: must_array,
                         filter: filter_array,
                         must_not: [
-                            {term: {"@transfer.to": account}}
+                            { term: { "@transfer.to": account } }
                         ]
                     }
                 }
@@ -165,7 +165,7 @@ async function getTransactedAccounts(fastify, request) {
                         must: must_array,
                         filter: filter_array,
                         must_not: [
-                            {term: {"@transfer.from": account}}
+                            { term: { "@transfer.from": account } }
                         ]
                     }
                 }

@@ -1,6 +1,6 @@
-import {HyperionWorker} from "./hyperionWorker";
-import {hLog} from "../helpers/common_functions";
-import {Message} from "amqplib";
+import { HyperionWorker } from "./hyperionWorker";
+import { hLog } from "../helpers/common_functions";
+import { Message } from "amqplib";
 
 interface HyperionDelta {
     "@timestamp": string;
@@ -21,7 +21,7 @@ export default class MainDSWorker extends HyperionWorker {
     assertQueues(): void {
         if (this.ch) {
             const queue = this.chain + ":delta_rm";
-            this.ch.assertQueue(queue, {durable: true});
+            this.ch.assertQueue(queue, { durable: true });
             this.ch.prefetch(1);
             this.ch.consume(queue, this.onConsume.bind(this));
         }
@@ -50,13 +50,13 @@ export default class MainDSWorker extends HyperionWorker {
                     query: {
                         bool: {
                             must: [
-                                {term: {"code": {"value": delta.code}}},
-                                {term: {"table": {"value": delta.table}}},
-                                {term: {"scope": {"value": delta.scope}}},
-                                {term: {"primary_key": {"value": delta.primary_key}}},
-                                {range: {"block_num": {"lte": delta.block_num}}}
+                                { term: { "code": { "value": delta.code } } },
+                                { term: { "table": { "value": delta.table } } },
+                                { term: { "scope": { "value": delta.scope } } },
+                                { term: { "primary_key": { "value": delta.primary_key } } },
+                                { range: { "block_num": { "lte": delta.block_num } } }
                             ],
-                            must_not: [{exists: {field: "deleted_at"}}]
+                            must_not: [{ exists: { field: "deleted_at" } }]
                         }
                     },
                     script: {

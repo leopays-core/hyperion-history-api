@@ -1,6 +1,6 @@
-import {FastifyInstance} from "fastify";
-import {getProposalsHandler} from "./get_proposals";
-import {addApiRoute, getRouteName} from "../../../helpers/functions";
+import { FastifyInstance } from "fastify";
+import { getProposalsHandler } from "./get_proposals";
+import { addApiRoute, getRouteName } from "../../../helpers/functions";
 
 export default function (fastify: FastifyInstance, opts: any, next) {
     const schema = {

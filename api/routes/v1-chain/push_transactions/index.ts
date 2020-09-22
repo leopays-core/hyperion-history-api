@@ -1,5 +1,5 @@
-import {FastifyInstance} from "fastify";
-import {addApiRoute, chainApiHandler, getRouteName} from "../../../helpers/functions";
+import { FastifyInstance } from "fastify";
+import { addApiRoute, chainApiHandler, getRouteName } from "../../../helpers/functions";
 
 export default function (fastify: FastifyInstance, opts: any, next) {
     addApiRoute(
@@ -29,14 +29,14 @@ export default function (fastify: FastifyInstance, opts: any, next) {
                     ],
                     properties: {
                         "expiration": 'Expiration#',
-                        "ref_block_num": {"type": "integer"},
-                        "ref_block_prefix": {"type": "integer"},
+                        "ref_block_num": { "type": "integer" },
+                        "ref_block_prefix": { "type": "integer" },
                         "max_net_usage_words": 'WholeNumber#',
                         "max_cpu_usage_ms": 'WholeNumber#',
-                        "delay_sec": {"type": "integer"},
-                        "context_free_actions": {"type": "array", "items": 'ActionItems#'},
-                        "actions": {"type": "array", "items": 'ActionItems#'},
-                        "transaction_extensions": {"type": "array", "items": 'BlockExtensions#'}
+                        "delay_sec": { "type": "integer" },
+                        "context_free_actions": { "type": "array", "items": 'ActionItems#' },
+                        "actions": { "type": "array", "items": 'ActionItems#' },
+                        "transaction_extensions": { "type": "array", "items": 'BlockExtensions#' }
                     },
                 }
             }

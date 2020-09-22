@@ -1,6 +1,6 @@
-import {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
-import {ServerResponse} from "http";
-import {timedQuery} from "../../../helpers/functions";
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { ServerResponse } from "http";
+import { timedQuery } from "../../../helpers/functions";
 
 async function getAbiSnapshot(fastify: FastifyInstance, request: FastifyRequest) {
 
@@ -14,18 +14,18 @@ async function getAbiSnapshot(fastify: FastifyInstance, request: FastifyRequest)
 
     const mustArray = [];
 
-    mustArray.push({"term": {"account": code}});
+    mustArray.push({ "term": { "account": code } });
 
     if (block) {
-        mustArray.push({"range": {"block": {"lte": parseInt(block)}}});
+        mustArray.push({ "range": { "block": { "lte": parseInt(block) } } });
     }
 
     const results = await fastify.elastic.search({
         index: fastify.manager.chain + '-abi',
         size: 1,
         body: {
-            query: {bool: {must: mustArray}},
-            sort: [{block: {order: "desc"}}]
+            query: { bool: { must: mustArray } },
+            sort: [{ block: { order: "desc" } }]
         }
     });
     if (results['body']['hits']['hits'].length > 0) {

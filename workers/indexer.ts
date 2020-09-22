@@ -1,10 +1,10 @@
-import {HyperionWorker} from "./hyperionWorker";
-import {AsyncCargo, cargo} from "async";
-import {ElasticRoutes} from '../helpers/elastic-routes';
+import { HyperionWorker } from "./hyperionWorker";
+import { AsyncCargo, cargo } from "async";
+import { ElasticRoutes } from '../helpers/elastic-routes';
 
 import * as pm2io from '@pm2/io';
-import {hLog} from "../helpers/common_functions";
-import {Message} from "amqplib";
+import { hLog } from "../helpers/common_functions";
+import { Message } from "amqplib";
 
 export default class IndexerWorker extends HyperionWorker {
 
@@ -58,7 +58,7 @@ export default class IndexerWorker extends HyperionWorker {
                     this.indexQueue.pause();
                     this.ch_ready = false;
                 });
-                this.ch.assertQueue(process.env.queue, {durable: true});
+                this.ch.assertQueue(process.env.queue, { durable: true });
                 this.ch.prefetch(this.conf.prefetch.index);
                 this.ch.consume(process.env.queue, this.indexQueue.push);
             }
@@ -72,7 +72,7 @@ export default class IndexerWorker extends HyperionWorker {
     startMonitoring() {
         setInterval(() => {
             if (this.temp_indexed_count > 0) {
-                process.send({event: 'add_index', size: this.temp_indexed_count});
+                process.send({ event: 'add_index', size: this.temp_indexed_count });
             }
             this.temp_indexed_count = 0;
         }, 1000);

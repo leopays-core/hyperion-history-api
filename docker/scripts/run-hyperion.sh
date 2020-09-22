@@ -13,10 +13,10 @@ echo $2
 # Used when start.sh script is not used
 if [ "$1" != true ]
 then
-  /home/hyperion/scripts/wait-for.sh eosio-node:8080
+  /home/hyperion/scripts/wait-for.sh leopays-node:8080
   if [ $? -ne 0 ]
   then
-    echo "failed to wait for eosio-node"
+    echo "failed to wait for leopays-node"
     exit 1
   fi
 fi

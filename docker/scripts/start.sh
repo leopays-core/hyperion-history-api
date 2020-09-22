@@ -83,21 +83,21 @@ fi
 
 docker-compose start kibana
 
-# Starting eosio-node container
-docker-compose start eosio-node
+# Starting leopays-node container
+docker-compose start leopays-node
 
 # Starting hyperion containers
-wait_for_container eosio-node 8888
+wait_for_container leopays-node 8888
 
 if [ $? -ne 0 ]
 then
-  echo "failed to wait for eosio-node"
+  echo "failed to wait for leopays-node"
   exit 1
 fi
 
 if [ "$snapshot" != "" ]
 then
-  file="$(docker inspect --format='{{.LogPath}}' eosio-node)"
+  file="$(docker inspect --format='{{.LogPath}}' leopays-node)"
   line="$(sudo grep -h 'Placing initial state in block' $file)"
 
   if [ "$line" != "" ]

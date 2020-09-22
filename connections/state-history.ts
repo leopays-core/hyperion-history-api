@@ -1,4 +1,4 @@
-import {debugLog, hLog} from "../helpers/common_functions";
+import { debugLog, hLog } from "../helpers/common_functions";
 
 const WebSocket = require('ws');
 

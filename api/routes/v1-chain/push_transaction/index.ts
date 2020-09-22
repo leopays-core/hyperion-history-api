@@ -1,5 +1,5 @@
-import {FastifyInstance} from "fastify";
-import {addApiRoute, chainApiHandler, getRouteName} from "../../../helpers/functions";
+import { FastifyInstance } from "fastify";
+import { addApiRoute, chainApiHandler, getRouteName } from "../../../helpers/functions";
 
 export default function (fastify: FastifyInstance, opts: any, next) {
     addApiRoute(

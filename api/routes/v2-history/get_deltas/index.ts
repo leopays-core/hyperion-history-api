@@ -1,6 +1,6 @@
-import {FastifyInstance, RouteSchema} from "fastify";
-import {getDeltasHandler} from "./get_deltas";
-import {addApiRoute, extendQueryStringSchema, extendResponseSchema, getRouteName} from "../../../helpers/functions";
+import { FastifyInstance, RouteSchema } from "fastify";
+import { getDeltasHandler } from "./get_deltas";
+import { addApiRoute, extendQueryStringSchema, extendResponseSchema, getRouteName } from "../../../helpers/functions";
 
 export default function (fastify: FastifyInstance, opts: any, next) {
     const schema: RouteSchema = {
@@ -31,15 +31,15 @@ export default function (fastify: FastifyInstance, opts: any, next) {
                 items: {
                     type: 'object',
                     properties: {
-                        "timestamp": {type: 'string'},
-                        "code": {type: 'string'},
-                        "scope": {type: 'string'},
-                        "table": {type: 'string'},
-                        "primary_key": {type: 'string'},
-                        "payer": {type: 'string'},
-                        "present": {type: 'boolean'},
-                        "block_num": {type: 'number'},
-                        "block_id": {type: 'string'},
+                        "timestamp": { type: 'string' },
+                        "code": { type: 'string' },
+                        "scope": { type: 'string' },
+                        "table": { type: 'string' },
+                        "primary_key": { type: 'string' },
+                        "payer": { type: 'string' },
+                        "present": { type: 'boolean' },
+                        "block_num": { type: 'number' },
+                        "block_id": { type: 'string' },
                         "data": {
                             type: 'object',
                             additionalProperties: true

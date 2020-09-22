@@ -1,20 +1,20 @@
-import {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
-import {ServerResponse} from "http";
-import {mergeActionMeta, timedQuery} from "../../../helpers/functions";
-import {createHash} from "crypto";
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { ServerResponse } from "http";
+import { mergeActionMeta, timedQuery } from "../../../helpers/functions";
+import { createHash } from "crypto";
 import * as flatstr from 'flatstr';
 
 async function getTransaction(fastify: FastifyInstance, request: FastifyRequest) {
     if (typeof request.body === 'string') {
         request.body = JSON.parse(request.body)
     }
-    const pResults = await Promise.all([fastify.eosjs.rpc.get_info(), fastify.elastic['search']({
+    const pResults = await Promise.all([fastify.leopaysjs.rpc.get_info(), fastify.elastic['search']({
         "index": fastify.manager.chain + '-action-*',
         "body": {
             "query": {
                 "bool": {
                     must: [
-                        {term: {"trx_id": request.body.id.toLowerCase()}}
+                        { term: { "trx_id": request.body.id.toLowerCase() } }
                     ]
                 }
             },

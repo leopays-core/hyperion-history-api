@@ -1,6 +1,6 @@
-import {FastifyInstance} from "fastify";
-import {addApiRoute, extendResponseSchema, getRouteName} from "../../../helpers/functions";
-import {getBlockTraceHandler} from "./get_block";
+import { FastifyInstance } from "fastify";
+import { addApiRoute, extendResponseSchema, getRouteName } from "../../../helpers/functions";
+import { getBlockTraceHandler } from "./get_block";
 
 export default function (fastify: FastifyInstance, opts: any, next) {
     const schema = {
@@ -21,32 +21,32 @@ export default function (fastify: FastifyInstance, opts: any, next) {
             }
         },
         response: extendResponseSchema({
-            "id": {type: "string"},
-            "number": {type: "integer"},
-            "previous_id": {type: "string"},
-            "status": {type: "string"},
-            "timestamp": {type: "string"},
-            "producer": {type: "string"},
+            "id": { type: "string" },
+            "number": { type: "integer" },
+            "previous_id": { type: "string" },
+            "status": { type: "string" },
+            "timestamp": { type: "string" },
+            "producer": { type: "string" },
             "transactions": {
                 type: "array",
                 items: {
                     type: 'object',
                     properties: {
-                        "id": {type: "string"},
+                        "id": { type: "string" },
                         "actions": {
                             type: "array",
                             items: {
                                 type: 'object',
                                 properties: {
-                                    "receiver": {type: "string"},
-                                    "account": {type: "string"},
-                                    "action": {type: "string"},
+                                    "receiver": { type: "string" },
+                                    "account": { type: "string" },
+                                    "action": { type: "string" },
                                     "authorization": {
                                         type: "array", items: {
                                             type: 'object',
                                             properties: {
-                                                "account": {type: "string"},
-                                                "permission": {type: "string"},
+                                                "account": { type: "string" },
+                                                "permission": { type: "string" },
                                             }
                                         }
                                     },

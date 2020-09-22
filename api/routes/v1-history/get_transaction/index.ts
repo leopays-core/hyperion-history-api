@@ -1,6 +1,6 @@
-import {FastifyInstance} from "fastify";
-import {addApiRoute, getRouteName} from "../../../helpers/functions";
-import {getTransactionHandler} from "./get_transaction";
+import { FastifyInstance } from "fastify";
+import { addApiRoute, getRouteName } from "../../../helpers/functions";
+import { getTransactionHandler } from "./get_transaction";
 
 export default function (fastify: FastifyInstance, opts: any, next) {
     addApiRoute(fastify, 'POST', getRouteName(__filename), getTransactionHandler, {
@@ -9,7 +9,7 @@ export default function (fastify: FastifyInstance, opts: any, next) {
         tags: ['history'],
         body: {
             type: ['object', 'string'],
-            properties: {id: {description: 'transaction id', type: 'string'}},
+            properties: { id: { description: 'transaction id', type: 'string' } },
             required: ["id"]
         }
     });

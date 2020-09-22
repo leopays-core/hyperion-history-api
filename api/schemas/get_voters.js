@@ -1,7 +1,7 @@
 exports.GET = {
     description: 'get voters',
     summary: 'get voters',
-    tags: ['accounts','state'],
+    tags: ['accounts', 'state'],
     querystring: {
         type: 'object',
         properties: {

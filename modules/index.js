@@ -68,4 +68,4 @@ class HyperionModuleLoader {
     }
 }
 
-module.exports = {HyperionModuleLoader};
+module.exports = { HyperionModuleLoader };

@@ -1,4 +1,4 @@
-import {extendedActions, primaryTerms, terms} from "./definitions";
+import { extendedActions, primaryTerms, terms } from "./definitions";
 
 export function addSortedBy(query, queryBody, sort_direction) {
     if (query['sortedBy']) {
@@ -31,14 +31,14 @@ export function processMultiVars(queryStruct, parts, field) {
                 should: must.map(elem => {
                     const _q = {};
                     _q[field] = elem;
-                    return {term: _q}
+                    return { term: _q }
                 })
             }
         });
     } else if (must.length === 1) {
         const mustQuery = {};
         mustQuery[field] = must[0];
-        queryStruct.bool.must.push({term: mustQuery});
+        queryStruct.bool.must.push({ term: mustQuery });
     }
 
     if (mustNot.length > 1) {
@@ -47,14 +47,14 @@ export function processMultiVars(queryStruct, parts, field) {
                 should: mustNot.map(elem => {
                     const _q = {};
                     _q[field] = elem;
-                    return {term: _q}
+                    return { term: _q }
                 })
             }
         });
     } else if (mustNot.length === 1) {
         const mustNotQuery = {};
         mustNotQuery[field] = mustNot[0].replace("!", "");
-        queryStruct.bool.must_not.push({term: mustNotQuery});
+        queryStruct.bool.must_not.push({ term: mustNotQuery });
     }
 }
 
@@ -65,7 +65,7 @@ function addRangeQuery(queryStruct, prop, pkey, query) {
         "gte": parts[0],
         "lte": parts[1]
     };
-    queryStruct.bool.must.push({range: _termQuery});
+    queryStruct.bool.must.push({ range: _termQuery });
 }
 
 export function applyTimeFilter(query, queryStruct) {
@@ -123,15 +123,15 @@ export function applyGenericFilters(query, queryStruct) {
                                 const _q = {};
                                 console.log(value);
                                 _q[pkey] = value;
-                                queryStruct.bool.must.push({term: _q});
+                                queryStruct.bool.must.push({ term: _q });
                             });
                         } else {
                             if (parts[0].startsWith("!")) {
                                 _termQuery[pkey] = parts[0].replace("!", "");
-                                queryStruct.bool.must_not.push({term: _termQuery});
+                                queryStruct.bool.must_not.push({ term: _termQuery });
                             } else {
                                 _termQuery[pkey] = parts[0];
-                                queryStruct.bool.must.push({term: _termQuery});
+                                queryStruct.bool.must.push({ term: _termQuery });
                             }
                         }
                     }
@@ -144,7 +144,7 @@ export function applyGenericFilters(query, queryStruct) {
 export function makeShouldArray(query) {
     const should_array = [];
     for (const entry of terms) {
-        const tObj = {term: {}};
+        const tObj = { term: {} };
         tObj.term[entry] = query.account;
         should_array.push(tObj);
     }
@@ -161,14 +161,14 @@ export function applyCodeActionFilters(query, queryStruct) {
                 if (parts.length === 2) {
                     const [code, method] = parts;
                     if (code && code !== "*") {
-                        _arr.push({'term': {'act.account': code}});
+                        _arr.push({ 'term': { 'act.account': code } });
                     }
                     if (method && method !== "*") {
-                        _arr.push({'term': {'act.name': method}});
+                        _arr.push({ 'term': { 'act.name': method } });
                     }
                 }
                 if (_arr.length > 0) {
-                    filterObj.push({bool: {must: _arr}});
+                    filterObj.push({ bool: { must: _arr } });
                 }
             }
         }
@@ -189,7 +189,7 @@ export function getSkipLimit(query) {
     if (limit < 1) {
         throw new Error('invalid limit parameter');
     }
-    return {skip, limit};
+    return { skip, limit };
 }
 
 export function getSortDir(query) {
@@ -208,6 +208,6 @@ export function getSortDir(query) {
 
 export function applyAccountFilters(query, queryStruct) {
     if (query.account) {
-        queryStruct.bool.must.push({"bool": {should: makeShouldArray(query)}});
+        queryStruct.bool.must.push({ "bool": { should: makeShouldArray(query) } });
     }
 }

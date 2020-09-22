@@ -1,12 +1,12 @@
-import {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
-import {ServerResponse} from "http";
-import {timedQuery} from "../../../helpers/functions";
-import {getSkipLimit} from "../get_actions/functions";
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { ServerResponse } from "http";
+import { timedQuery } from "../../../helpers/functions";
+import { getSkipLimit } from "../get_actions/functions";
 
 async function getCreatedAccounts(fastify: FastifyInstance, request: FastifyRequest) {
 
 
-    const {skip, limit} = getSkipLimit(request.query);
+    const { skip, limit } = getSkipLimit(request.query);
     const maxActions = fastify.manager.config.api.limits.get_created_accounts;
     const results = await fastify.elastic.search({
         "index": fastify.manager.chain + '-action-*',
@@ -16,9 +16,9 @@ async function getCreatedAccounts(fastify: FastifyInstance, request: FastifyRequ
             "query": {
                 "bool": {
                     must: [
-                        {term: {"act.authorization.actor": request.query.account.toLowerCase()}},
-                        {term: {"act.name": "newaccount"}},
-                        {term: {"act.account": "lpc"}}
+                        { term: { "act.authorization.actor": request.query.account.toLowerCase() } },
+                        { term: { "act.name": "newaccount" } },
+                        { term: { "act.account": "lpc" } }
                     ]
                 }
             },
@@ -28,7 +28,7 @@ async function getCreatedAccounts(fastify: FastifyInstance, request: FastifyRequ
         }
     });
 
-    const response = {accounts: []};
+    const response = { accounts: [] };
 
     if (results['body']['hits']['hits'].length > 0) {
         const actions = results['body']['hits']['hits'];

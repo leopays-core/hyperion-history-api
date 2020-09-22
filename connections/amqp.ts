@@ -1,6 +1,6 @@
-import {debugLog, hLog} from "../helpers/common_functions";
+import { debugLog, hLog } from "../helpers/common_functions";
 import got from "got";
-import {connect, Connection} from 'amqplib';
+import { connect, Connection } from 'amqplib';
 
 export async function createConnection(config): Promise<Connection> {
     try {

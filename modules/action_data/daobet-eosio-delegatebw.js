@@ -7,13 +7,13 @@ const hyperionModule = {
         action: {
             "@delegatebw": {
                 "properties": {
-                    "from": {"type": "keyword"},
-                    "receiver": {"type": "keyword"},
-                    "stake_cpu_quantity": {"type": "float"},
-                    "stake_net_quantity": {"type": "float"},
-                    "stake_vote_quantity": {"type": "float"},
-                    "transfer": {"type": "boolean"},
-                    "amount": {"type": "float"}
+                    "from": { "type": "keyword" },
+                    "receiver": { "type": "keyword" },
+                    "stake_cpu_quantity": { "type": "float" },
+                    "stake_net_quantity": { "type": "float" },
+                    "stake_vote_quantity": { "type": "float" },
+                    "transfer": { "type": "boolean" },
+                    "amount": { "type": "float" }
                 }
             }
         }
@@ -42,4 +42,4 @@ const hyperionModule = {
     }
 };
 
-module.exports = {hyperionModule};
+module.exports = { hyperionModule };

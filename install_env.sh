@@ -19,6 +19,7 @@ GLOBAL="y"
 RABBIT_USER="hyperion"
 RABBIT_PASSWORD="123456"
 NODE=false
+YARN=false
 ELASTIC=false
 REDIS=false
 RABBIT=false
@@ -55,6 +56,7 @@ check_ram() {
 # first check if is installed, after check version
 check_dependencies() {
   echo -e "\n\n${COLOR_BLUE}Checking dependencies...${COLOR_NC}\n\n"
+
   CMD=$(if (dpkg --compare-versions $(dpkg -s nodejs 2>/dev/null | awk '/Version/ {print $2}') ge "5" 2>/dev/null); then echo true; else echo false; fi)
   if ("$CMD" = true); then
     NODE=true
@@ -65,6 +67,18 @@ check_dependencies() {
   else
     echo -e "\n\n${COLOR_BLUE}Nodejs not installed ${COLOR_NC}"
   fi
+
+  CMD=$(if (dpkg --compare-versions $(dpkg -s yarn 2>/dev/null | awk '/Version/ {print $2}') ge "1.22.0" 2>/dev/null); then echo true; else echo false; fi)
+  if ("$CMD" = true); then
+    YARN=true
+    echo -e "\n\n${COLOR_BLUE}Yarn compatible version already installed ${COLOR_NC}"
+  elif ("$CMD" = false); then
+    echo -e "\n\n${COLOR_RED}Yarn installed version is < 1.22.0. Please, update and try again. ${COLOR_NC}\n\n"
+    exit 1
+  else
+    echo -e "\n\n${COLOR_BLUE}Yarn not installed ${COLOR_NC}"
+  fi
+
   CMD=$(if (dpkg --compare-versions $(dpkg -s elasticsearch 2>/dev/null | awk '/Version/ {print $2}') ge "7.6" 2>/dev/null); then echo true; else echo false; fi)
   if ("$CMD" = true); then
     ELASTIC=true
@@ -75,6 +89,7 @@ check_dependencies() {
   else
     echo -e "\n${COLOR_BLUE}Elasticsearch not installed ${COLOR_NC}"
   fi
+
   CMD=$(if (dpkg --compare-versions $(dpkg -s redis-server 2>/dev/null | awk '/Version/ {print $2}') ge "5" 2>/dev/null); then echo true; else echo false; fi)
   if ("$CMD" = true); then
     REDIS=true
@@ -85,6 +100,7 @@ check_dependencies() {
   else
     echo -e "\n${COLOR_BLUE}Redis not installed ${COLOR_NC}"
   fi
+
   CMD=$(if (dpkg --compare-versions $(dpkg -s rabbitmq-server 2>/dev/null | awk '/Version/ {print $2}') ge "3.8" 2>/dev/null); then echo true; else echo false; fi)
   if ("$CMD" = true); then
     RABBIT=true
@@ -95,6 +111,7 @@ check_dependencies() {
   else
     echo -e "\n${COLOR_BLUE}RabbitMQ not installed ${COLOR_NC}"
   fi
+
   CMD=$(if (dpkg --compare-versions $(dpkg -s kibana 2>/dev/null | awk '/Version/ {print $2}') ge "7.6" 2>/dev/null); then echo true; else echo false; fi)
   if ("$CMD" = true); then
     RABBIT=true
@@ -108,13 +125,13 @@ check_dependencies() {
 }
 
 # Make a directory for global installations
-configure_npm() {
-  mkdir ~/.npm-global
-  npm config set prefix "$HOME/.npm-global"
+configure_yarn() {
+  mkdir ~/.yarn
+  yarn config set prefix "$HOME/.yarn"
   # export path for the current session
-  export PATH=$HOME/.npm-global/bin:$PATH
+  export PATH=$HOME/.yarn/bin:$PATH
   # make PATH persistent
-  echo "export PATH=~/.npm-global/bin:$PATH" >>"$HOME/.profile"
+  echo "export PATH=~/.yarn/bin:$PATH" >>"$HOME/.profile"
   # shellcheck source=/dev/null
   source ~/.profile
 }
@@ -140,6 +157,12 @@ install_keys_sources() {
     curl -sL "https://deb.nodesource.com/setup_13.x" | sudo -E bash -
   fi
 
+  PPA="https://dl.yarnpkg.com/debian/ stable main"
+  if ! grep -q "^deb .*$PPA" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+  fi
+
   sudo apt update -y
 }
 
@@ -152,24 +175,29 @@ install_dep() {
 install_node() {
   echo -e "\n\n${COLOR_BLUE}Installing nodejs...${COLOR_NC}\n\n"
   sudo apt install -y nodejs
-  read -p "Do you want to create a directory for npm global installations [Y/n] : " GLOBAL
+}
+
+install_yarn() {
+  echo -e "\n\n${COLOR_BLUE}Installing yarn...${COLOR_NC}\n\n"
+  sudo apt install -y yarn
+  read -p "Do you want to create a directory for yarn global installations [Y/n] : " GLOBAL
   GLOBAL=${GLOBAL:-y}
   if [ "$GLOBAL" = "y" ]; then
-    configure_npm
+    configure_yarn
   fi
 }
 
 install_build_hyperion() {
   echo -e "\n\n${COLOR_BLUE}Installing packages and building hyperion...${COLOR_NC}\n\n"
-  npm install
+  yarn install
 }
 
 install_pm2() {
   echo -e "\n\n${COLOR_BLUE}Installing pm2...${COLOR_NC}\n\n"
   if [ "$GLOBAL" = "y" ]; then
-    npm install pm2@latest -g
+    yarn global add pm2@latest
   else
-    sudo npm install pm2@latest -g
+    sudo yarn global add pm2@latest
   fi
 }
 
@@ -267,6 +295,10 @@ install_dep
 install_keys_sources
 if [ "$NODE" = false ]; then
   install_node
+fi
+
+if [ "$YARN" = false ]; then
+  install_yarn
 fi
 
 install_pm2

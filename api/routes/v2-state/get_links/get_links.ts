@@ -1,13 +1,13 @@
-import {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
-import {ServerResponse} from "http";
-import {getTrackTotalHits, timedQuery} from "../../../helpers/functions";
-import {ApiResponse} from "@elastic/elasticsearch";
-import {getSkipLimit} from "../../v2-history/get_actions/functions";
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { ServerResponse } from "http";
+import { getTrackTotalHits, timedQuery } from "../../../helpers/functions";
+import { ApiResponse } from "@elastic/elasticsearch";
+import { getSkipLimit } from "../../v2-history/get_actions/functions";
 
 async function getLinks(fastify: FastifyInstance, request: FastifyRequest) {
     const query = request.query;
-    const {account, code, action, permissions} = query;
-    const {skip, limit} = getSkipLimit(query);
+    const { account, code, action, permissions } = query;
+    const { skip, limit } = getSkipLimit(query);
 
     const queryStruct = {
         "bool": {
@@ -16,29 +16,29 @@ async function getLinks(fastify: FastifyInstance, request: FastifyRequest) {
     };
 
     if (account) {
-        queryStruct.bool.must.push({'term': {'account': account}});
+        queryStruct.bool.must.push({ 'term': { 'account': account } });
     }
 
     if (code) {
-        queryStruct.bool.must.push({'term': {'code': code}});
+        queryStruct.bool.must.push({ 'term': { 'code': code } });
     }
 
     if (action) {
-        queryStruct.bool.must.push({'term': {'action': action}});
+        queryStruct.bool.must.push({ 'term': { 'action': action } });
     }
 
     if (permissions) {
-        queryStruct.bool.must.push({'term': {'permissions': permissions}});
+        queryStruct.bool.must.push({ 'term': { 'permissions': permissions } });
     }
 
     // only present deltas
-    queryStruct.bool.must.push({'term': {'present': true}});
+    queryStruct.bool.must.push({ 'term': { 'present': true } });
 
     // Prepare query body
     const query_body = {
         track_total_hits: getTrackTotalHits(query),
         query: queryStruct,
-        sort: {block_num: 'desc'}
+        sort: { block_num: 'desc' }
     };
 
     const maxLinks = fastify.manager.config.api.limits.get_links;

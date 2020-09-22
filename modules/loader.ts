@@ -1,9 +1,9 @@
-import {ConfigurationModule} from "./config";
-import {join} from "path";
-import {readdirSync} from "fs";
-import {HyperionConnections} from "../interfaces/hyperionConnections";
-import {HyperionConfig} from "../interfaces/hyperionConfig";
-import {BaseParser} from "./parsers/base-parser";
+import { ConfigurationModule } from "./config";
+import { join } from "path";
+import { readdirSync } from "fs";
+import { HyperionConnections } from "../interfaces/hyperionConnections";
+import { HyperionConfig } from "../interfaces/hyperionConfig";
+import { BaseParser } from "./parsers/base-parser";
 
 export class HyperionModuleLoader {
 

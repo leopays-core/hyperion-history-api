@@ -1,6 +1,6 @@
-import {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
-import {ServerResponse} from "http";
-import {mergeDeltaMeta, timedQuery} from "../../../helpers/functions";
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { ServerResponse } from "http";
+import { mergeDeltaMeta, timedQuery } from "../../../helpers/functions";
 
 async function getDeltas(fastify: FastifyInstance, request: FastifyRequest) {
     let skip, limit;
@@ -38,8 +38,8 @@ async function getDeltas(fastify: FastifyInstance, request: FastifyRequest) {
                     const values = request.query[param].split(",");
                     const terms = {};
                     terms[param] = values;
-                    const shouldArray = {terms: terms};
-                    const boolStruct = {bool: {should: [shouldArray]}};
+                    const shouldArray = { terms: terms };
+                    const boolStruct = { bool: { should: [shouldArray] } };
                     mustArray.push(boolStruct);
                     break;
                 }
@@ -53,7 +53,7 @@ async function getDeltas(fastify: FastifyInstance, request: FastifyRequest) {
         "from": skip || 0,
         "size": (limit > maxDeltas ? maxDeltas : limit) || 10,
         "body": {
-            query: {bool: {must: mustArray}},
+            query: { bool: { must: mustArray } },
             sort: {
                 "block_num": sort_direction
             }

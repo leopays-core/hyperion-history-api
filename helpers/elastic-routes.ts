@@ -1,13 +1,13 @@
-import {Channel, Message} from "amqplib/callback_api";
-import {ConnectionManager} from "../connections/manager.class";
+import { Channel, Message } from "amqplib/callback_api";
+import { ConnectionManager } from "../connections/manager.class";
 import * as _ from "lodash";
-import {hLog} from "./common_functions";
-import {createHash} from "crypto";
+import { hLog } from "./common_functions";
+import { createHash } from "crypto";
 
 function makeScriptedOp(id, body) {
     return [
-        {update: {_id: id, retry_on_conflict: 3}},
-        {script: {id: "updateByBlock", params: body}, scripted_upsert: true, upsert: {}}
+        { update: { _id: id, retry_on_conflict: 3 } },
+        { script: { id: "updateByBlock", params: body }, scripted_upsert: true, upsert: {} }
     ];
 }
 
@@ -22,7 +22,7 @@ function buildActionBulk(payloads, messageMap) {
     return flatMap(payloads, (payload, body) => {
         const id = body['global_sequence'];
         messageMap.set(id, _.omit(payload, ['content']));
-        return [{index: {_id: id}}, body];
+        return [{ index: { _id: id } }, body];
     });
 }
 
@@ -30,7 +30,7 @@ function buildBlockBulk(payloads, messageMap) {
     return flatMap(payloads, (payload, body) => {
         const id = body['block_num'];
         messageMap.set(id, _.omit(payload, ['content']));
-        return [{index: {_id: id}}, body];
+        return [{ index: { _id: id } }, body];
     });
 }
 
@@ -38,7 +38,7 @@ function buildAbiBulk(payloads, messageMap) {
     return flatMap(payloads, (payload, body) => {
         const id = body['block'] + body['account'];
         messageMap.set(id, _.omit(payload, ['content']));
-        return [{index: {_id: id}}, body];
+        return [{ index: { _id: id } }, body];
     });
 }
 
@@ -47,7 +47,7 @@ function buildDeltaBulk(payloads, messageMap) {
         const _p = b.present ? 1 : 0;
         const id = `${b.block_num}-${b.code}-${b.scope}-${b.table}-${_p}-${b.primary_key}`;
         messageMap.set(id, _.omit(payload, ['content']));
-        return [{index: {_id: id}}, b];
+        return [{ index: { _id: id } }, b];
     });
 }
 
@@ -115,7 +115,7 @@ function buildGenTrxBulk(payloads, messageMap) {
             .toString("hex");
         const id = `${body.block_num}-${hash}`;
         messageMap.set(id, _.omit(payload, ['content']));
-        return [{index: {_id: id}}, body];
+        return [{ index: { _id: id } }, body];
     });
 }
 
@@ -124,7 +124,7 @@ function buildTrxErrBulk(payloads, messageMap) {
         const id = body.trx_id.toLowerCase();
         delete body.trx_id;
         messageMap.set(id, _.omit(payload, ['content']));
-        return [{index: {_id: id}}, body];
+        return [{ index: { _id: id } }, body];
     });
 }
 
@@ -143,7 +143,7 @@ export class ElasticRoutes {
 
     constructor(connectionManager: ConnectionManager, distributionMap: IndexDist[]) {
         this.distributionMap = distributionMap;
-        this.routes = {generic: this.handleGenericRoute.bind(this)};
+        this.routes = { generic: this.handleGenericRoute.bind(this) };
         this.cm = connectionManager;
         this.chain = this.cm.chain;
         this.registerRoutes();

@@ -1,6 +1,6 @@
-const {getTransfersSchema} = require("../../schemas");
+const { getTransfersSchema } = require("../../schemas");
 const _ = require('lodash');
-const {getCacheByHash} = require("../../helpers/functions");
+const { getCacheByHash } = require("../../helpers/functions");
 const route = '/get_transfers';
 
 const maxActions = 1000;
@@ -25,24 +25,24 @@ function processActions(results) {
 }
 
 async function getTransfers(fastify, request) {
-    const {redis, elastic} = fastify;
+    const { redis, elastic } = fastify;
     const [cachedResponse, hash] = await getCacheByHash(redis, route + JSON.stringify(request.query));
     if (cachedResponse) {
         return cachedResponse;
     }
     const must_array = [];
-    must_array.push({"term": {"act.name": {"value": "transfer"}}});
+    must_array.push({ "term": { "act.name": { "value": "transfer" } } });
     if (request.query['from']) {
-        must_array.push({"term": {"@transfer.from": {"value": request.query['from'].toLowerCase()}}});
+        must_array.push({ "term": { "@transfer.from": { "value": request.query['from'].toLowerCase() } } });
     }
     if (request.query['to']) {
-        must_array.push({"term": {"@transfer.to": {"value": request.query['to'].toLowerCase()}}});
+        must_array.push({ "term": { "@transfer.to": { "value": request.query['to'].toLowerCase() } } });
     }
     if (request.query['symbol']) {
-        must_array.push({"term": {"@transfer.symbol": {"value": request.query['symbol'].toUpperCase()}}});
+        must_array.push({ "term": { "@transfer.symbol": { "value": request.query['symbol'].toUpperCase() } } });
     }
     if (request.query['contract']) {
-        must_array.push({"term": {"act.account": {"value": request.query['contract'].toLowerCase()}}});
+        must_array.push({ "term": { "act.account": { "value": request.query['contract'].toLowerCase() } } });
     }
     if (request.query['after'] || request.query['before']) {
         let _lte = "now";
@@ -71,7 +71,7 @@ async function getTransfers(fastify, request) {
     if (skip < 0) {
         return 'invalid skip parameter';
     }
-    const body = {"query": {"bool": {"must": must_array}}};
+    const body = { "query": { "bool": { "must": must_array } } };
     const results = await elastic.search({
         "index": process.env.CHAIN + '-action-*',
         "from": skip || 0,

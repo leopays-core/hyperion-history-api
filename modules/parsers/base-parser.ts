@@ -1,12 +1,12 @@
-import {ConfigurationModule, Filters} from "../config";
+import { ConfigurationModule, Filters } from "../config";
 import MainDSWorker from "../../workers/deserializer";
-import {Message} from "amqplib";
+import { Message } from "amqplib";
 import DSPoolWorker from "../../workers/ds-pool";
-import {TrxMetadata} from "../../interfaces/trx-metadata";
-import {ActionTrace} from "../../interfaces/action-trace";
-import {hLog} from "../../helpers/common_functions";
-import {HyperionAction} from "../../interfaces/hyperion-action";
-import {SerialBuffer} from "eosjs/dist/eosjs-serialize";
+import { TrxMetadata } from "../../interfaces/trx-metadata";
+import { ActionTrace } from "../../interfaces/action-trace";
+import { hLog } from "../../helpers/common_functions";
+import { HyperionAction } from "../../interfaces/hyperion-action";
+import { SerialBuffer } from "@leopays-core/leopaysjs/dist/leopaysjs-serialize";
 
 export abstract class BaseParser {
 
@@ -76,7 +76,7 @@ export abstract class BaseParser {
         // simple assets
         this.actionReinterpretMap.set('*::saecreate', (act) => {
             const _sb = this.createSerialBuffer(act.data);
-            const result = {owner: "", assetid: null};
+            const result = { owner: "", assetid: null };
             result.owner = _sb.getName();
             result.assetid = _sb.getUint64AsNumber()
             return result;
@@ -84,7 +84,7 @@ export abstract class BaseParser {
 
         this.actionReinterpretMap.set('*::saetransfer', (act) => {
             const _sb = this.createSerialBuffer(act.data);
-            const result = {from: "", to: "", assetids: [], memo: ""};
+            const result = { from: "", to: "", assetids: [], memo: "" };
             result.from = _sb.getName();
             result.to = _sb.getName();
             const len = _sb.getVaruint32();
@@ -97,7 +97,7 @@ export abstract class BaseParser {
 
         this.actionReinterpretMap.set('*::saeclaim', (act) => {
             const _sb = this.createSerialBuffer(act.data);
-            const result = {who: "", assetids: {}};
+            const result = { who: "", assetids: {} };
             result.who = _sb.getName();
             const len = _sb.getVaruint32();
             for (let i = 0; i < len; i++) {
@@ -108,7 +108,7 @@ export abstract class BaseParser {
 
         this.actionReinterpretMap.set('*::saeburn', (act) => {
             const _sb = this.createSerialBuffer(act.data);
-            const result = {who: "", assetids: [], memo: ""};
+            const result = { who: "", assetids: [], memo: "" };
             result.who = _sb.getName();
             const len = _sb.getVaruint32();
             for (let i = 0; i < len; i++) {

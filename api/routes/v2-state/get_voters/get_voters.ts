@@ -1,11 +1,11 @@
-import {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
-import {ServerResponse} from "http";
-import {timedQuery} from "../../../helpers/functions";
-import {getSkipLimit} from "../../v2-history/get_actions/functions";
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { ServerResponse } from "http";
+import { timedQuery } from "../../../helpers/functions";
+import { getSkipLimit } from "../../v2-history/get_actions/functions";
 
 async function getVoters(fastify: FastifyInstance, request: FastifyRequest) {
 
-    const {skip, limit} = getSkipLimit(request.query);
+    const { skip, limit } = getSkipLimit(request.query);
 
     const response = {
         voter_count: 0,
@@ -19,12 +19,12 @@ async function getVoters(fastify: FastifyInstance, request: FastifyRequest) {
 
     if (request.query.producer) {
         for (const bp of request.query.producer.split(",")) {
-            queryStruct.bool.must.push({"term": {"producers": bp}});
+            queryStruct.bool.must.push({ "term": { "producers": bp } });
         }
     }
 
     if (request.query.proxy === 'true') {
-        queryStruct.bool.must.push({"term": {"is_proxy": true}});
+        queryStruct.bool.must.push({ "term": { "is_proxy": true } });
     }
 
     if (queryStruct.bool.must.length === 0) {
@@ -40,7 +40,7 @@ async function getVoters(fastify: FastifyInstance, request: FastifyRequest) {
         "size": (limit > maxDocs ? maxDocs : limit) || 10,
         "body": {
             "query": queryStruct,
-            "sort": [{"last_vote_weight": "desc"}]
+            "sort": [{ "last_vote_weight": "desc" }]
         }
     });
     const hits = results['body']['hits']['hits'];

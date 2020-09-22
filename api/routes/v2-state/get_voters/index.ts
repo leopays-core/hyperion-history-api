@@ -1,6 +1,6 @@
-import {FastifyInstance} from "fastify";
-import {getVotersHandler} from "./get_voters";
-import {addApiRoute, extendQueryStringSchema, extendResponseSchema, getRouteName} from "../../../helpers/functions";
+import { FastifyInstance } from "fastify";
+import { getVotersHandler } from "./get_voters";
+import { addApiRoute, extendQueryStringSchema, extendResponseSchema, getRouteName } from "../../../helpers/functions";
 
 export default function (fastify: FastifyInstance, opts: any, next) {
     const schema = {
@@ -21,9 +21,9 @@ export default function (fastify: FastifyInstance, opts: any, next) {
                 items: {
                     type: "object",
                     properties: {
-                        "account": {type: "string"},
-                        "weight": {type: "number"},
-                        "last_vote": {type: "number"},
+                        "account": { type: "string" },
+                        "weight": { type: "number" },
+                        "last_vote": { type: "number" },
                         "data": {
                             additionalProperties: true
                         }

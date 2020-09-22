@@ -1,7 +1,7 @@
 {
   "name": "hyperion-history",
-  "version": "0.1.0",
-  "description": "Scalable Full History API Solution for LeoPays blockchain",
+  "version": "3.1.2",
+  "description": "Scalable Full History API Solution for EOSIO based blockchains",
   "main": "launcher.js",
   "scripts": {
     "logs": "pm2 logs Indexer",
@@ -9,26 +9,26 @@
     "start:indexer": "pm2 start --only Indexer --update-env",
     "fix-permissions": "chmod u+x run.sh stop.sh install_env.sh",
     "tsc": "tsc",
-    "postinstall": "yarn run tsc && yarn run fix-permissions"
+    "postinstall": "npm run tsc && npm run fix-permissions"
   },
   "author": {
-    "name": "LeoPays",
-    "url": "https://leopays.com"
+    "name": "EOS Rio",
+    "url": "https://eosrio.io"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/leopays-core/hyperion-history-api.git"
+    "url": "https://github.com/eosrio/Hyperion-History-API.git"
   },
   "license": "MIT",
   "dependencies": {
     "@elastic/elasticsearch": "^7.9.0",
     "@eosrio/node-abieos": "2.1.0-beta.0",
-    "@leopays-core/leopaysjs": "^0.1.2",
-    "@leopays-core/leopaysjs-ecc": "^0.1.1",
     "@pm2/io": "4.3.5",
     "amqplib": "0.6.0",
     "async": "3.2.0",
     "async-redis": "^1.1.7",
+    "eosjs": "21.0.3",
+    "eosjs-ecc": "4.0.7",
     "fast-json-parse": "1.0.3",
     "fast-json-stringify": "2.1.0",
     "fast-proxy": "^1.6.2",
@@ -60,11 +60,11 @@
     "yargs": "15.4.1"
   },
   "devDependencies": {
+    "@types/ioredis": "4.16.6",
+    "@types/lodash": "4.14.155",
     "@types/amqplib": "0.5.13",
     "@types/async": "3.2.3",
     "@types/got": "9.6.11",
-    "@types/ioredis": "4.16.6",
-    "@types/lodash": "4.14.155",
     "@types/node": "14.0.13",
     "@types/socket.io": "2.1.8",
     "@types/socket.io-client": "1.4.33",

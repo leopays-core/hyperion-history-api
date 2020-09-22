@@ -1,7 +1,7 @@
-import {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
-import {ServerResponse} from "http";
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { ServerResponse } from "http";
 import got from "got";
-import {timedQuery} from "../../../helpers/functions";
+import { timedQuery } from "../../../helpers/functions";
 
 async function getAccount(fastify: FastifyInstance, request: FastifyRequest) {
 
@@ -17,7 +17,7 @@ async function getAccount(fastify: FastifyInstance, request: FastifyRequest) {
     const reqQueue = [];
 
     try {
-        response.account = await fastify.eosjs.rpc.get_account(account);
+        response.account = await fastify.leopaysjs.rpc.get_account(account);
     } catch (e) {
         throw new Error("Account not found!");
     }

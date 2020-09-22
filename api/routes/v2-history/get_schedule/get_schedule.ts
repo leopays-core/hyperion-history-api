@@ -1,9 +1,9 @@
-import {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
-import {ServerResponse} from "http";
-import {timedQuery} from "../../../helpers/functions";
-import {createHash} from "crypto";
-import {base58ToBinary, binaryToBase58} from "eosjs/dist/eosjs-numeric";
-import {Search} from "@elastic/elasticsearch/api/requestParams";
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { ServerResponse } from "http";
+import { timedQuery } from "../../../helpers/functions";
+import { createHash } from "crypto";
+import { base58ToBinary, binaryToBase58 } from "@leopays-core/leopaysjs/dist/leopaysjs-numeric";
+import { Search } from "@elastic/elasticsearch/api/requestParams";
 
 function convertToLegacyKey(block_signing_key: string) {
     if (block_signing_key.startsWith("PUB_K1_")) {
@@ -16,7 +16,7 @@ function convertToLegacyKey(block_signing_key: string) {
                 .digest()
                 .slice(0, 4)
         ]);
-        return "EOS" + binaryToBase58(merged);
+        return "LPC" + binaryToBase58(merged);
     } else {
         return block_signing_key;
     }
@@ -36,11 +36,11 @@ async function getSchedule(fastify: FastifyInstance, request: FastifyRequest) {
                     must: []
                 }
             },
-            sort: {block_num: "desc"}
+            sort: { block_num: "desc" }
         }
     };
     if (request.query.version) {
-        searchParams.body.query.bool.must.push({"term": {"new_producers.version": {"value": request.query.version}}});
+        searchParams.body.query.bool.must.push({ "term": { "new_producers.version": { "value": request.query.version } } });
     } else {
         searchParams.body.query.bool.must.push({
             "exists": {

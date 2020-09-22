@@ -2,7 +2,7 @@ const actionExtras = new Map();
 const config = require(`../${process.env.CONFIG_JSON}`);
 const chain = config.settings.chain;
 
-actionExtras.set(`${chain}"::eosio::newaccount`, (action) => {
+actionExtras.set(`${chain}"::lpc::newaccount`, (action) => {
     let name = null;
     const data = action['act']['data'];
     if (data['newact']) {
@@ -36,4 +36,4 @@ actionExtras.set(`${chain}"::*::transfer`, (action) => {
     }
 });
 
-module.exports = {actionExtras};
+module.exports = { actionExtras };

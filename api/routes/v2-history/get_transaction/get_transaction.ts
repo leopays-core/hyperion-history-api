@@ -1,11 +1,11 @@
-import {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
-import {ServerResponse} from "http";
-import {mergeActionMeta, timedQuery} from "../../../helpers/functions";
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { ServerResponse } from "http";
+import { mergeActionMeta, timedQuery } from "../../../helpers/functions";
 
 async function getTransaction(fastify: FastifyInstance, request: FastifyRequest) {
     const _size = fastify.manager.config.api.limits.get_trx_actions || 100;
     const pResults = await Promise.all([
-        fastify.eosjs.rpc.get_info(),
+        fastify.leopaysjs.rpc.get_info(),
         fastify.elastic.search({
             index: fastify.manager.chain + '-action-*',
             size: _size,
@@ -13,7 +13,7 @@ async function getTransaction(fastify: FastifyInstance, request: FastifyRequest)
                 query: {
                     bool: {
                         must: [
-                            {term: {trx_id: request.query.id.toLowerCase()}}
+                            { term: { trx_id: request.query.id.toLowerCase() } }
                         ]
                     }
                 },
@@ -29,7 +29,7 @@ async function getTransaction(fastify: FastifyInstance, request: FastifyRequest)
                 query: {
                     bool: {
                         must: [
-                            {term: {trx_id: request.query.id.toLowerCase()}}
+                            { term: { trx_id: request.query.id.toLowerCase() } }
                         ]
                     }
                 }

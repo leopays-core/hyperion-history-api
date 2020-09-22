@@ -1,4 +1,4 @@
-const {ConnectionManager} = require('../connections/manager');
+const { ConnectionManager } = require('../connections/manager');
 const manager = new ConnectionManager();
 
 let client;
@@ -15,8 +15,8 @@ async function countMissingBlocks() {
         size: 1,
         track_total_hits: true,
         body: {
-            query: {match_all: {}},
-            sort: [{block_num: {order: "desc"}}]
+            query: { match_all: {} },
+            sort: [{ block_num: { order: "desc" } }]
         }
     });
     const block_count = results['body']['hits'].total.value;
@@ -42,8 +42,8 @@ async function createScroller(missingArray) {
         _source: ['block_num'],
         size: 1000,
         body: {
-            query: {bool: {must: [{range: range_filter}]}},
-            sort: [{block_num: {order: "asc"}}]
+            query: { bool: { must: [{ range: range_filter }] } },
+            sort: [{ block_num: { order: "asc" } }]
         }
     });
     const scrollId = response['body']['_scroll_id'];

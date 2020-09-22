@@ -257,4 +257,4 @@ const RexAbi = {
     ]
 };
 
-module.exports = {AbiDefinitions, RexAbi};
+module.exports = { AbiDefinitions, RexAbi };

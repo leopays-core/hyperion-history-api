@@ -1,8 +1,8 @@
-import {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
-import {ServerResponse} from "http";
-import {connect} from "amqplib";
-import {timedQuery} from "../../../helpers/functions";
-import {getLastIndexedBlockWithTotalBlocks} from "../../../../helpers/common_functions";
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { ServerResponse } from "http";
+import { connect } from "amqplib";
+import { timedQuery } from "../../../helpers/functions";
+import { getLastIndexedBlockWithTotalBlocks } from "../../../../helpers/common_functions";
 
 async function checkRabbit(fastify: FastifyInstance) {
     try {
@@ -38,7 +38,7 @@ async function checkNodeos(fastify: FastifyInstance) {
 
 async function checkElastic(fastify: FastifyInstance) {
     try {
-        let esStatus = await fastify.elastic.cat.health({format: 'json', v: true});
+        let esStatus = await fastify.elastic.cat.health({ format: 'json', v: true });
         let indexedBlocks = await getLastIndexedBlockWithTotalBlocks(fastify.elastic, fastify.manager.chain);
         const data = {
             last_indexed_block: indexedBlocks[0],

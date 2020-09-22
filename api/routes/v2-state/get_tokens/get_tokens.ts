@@ -1,14 +1,14 @@
-import {ServerResponse} from "http";
-import {timedQuery} from "../../../helpers/functions";
-import {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
-import {getSkipLimit} from "../../v2-history/get_actions/functions";
+import { ServerResponse } from "http";
+import { timedQuery } from "../../../helpers/functions";
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { getSkipLimit } from "../../v2-history/get_actions/functions";
 
 
 async function getTokens(fastify: FastifyInstance, request: FastifyRequest) {
 
-    const response = {'account': request.query.account, 'tokens': []};
+    const response = { 'account': request.query.account, 'tokens': [] };
 
-    const {skip, limit} = getSkipLimit(request.query);
+    const { skip, limit } = getSkipLimit(request.query);
     const maxDocs = fastify.manager.config.api.limits.get_tokens ?? 100;
 
     const stateResult = await fastify.elastic.search({
@@ -18,7 +18,7 @@ async function getTokens(fastify: FastifyInstance, request: FastifyRequest) {
         "body": {
             query: {
                 bool: {
-                    filter: [{term: {"scope": request.query.account}}]
+                    filter: [{ term: { "scope": request.query.account } }]
                 }
             }
         }
@@ -39,13 +39,13 @@ async function getTokens(fastify: FastifyInstance, request: FastifyRequest) {
         } else {
             let token_data;
             try {
-                token_data = await fastify.eosjs.rpc.get_currency_balance(data.code, request.query.account, data.symbol);
+                token_data = await fastify.leopaysjs.rpc.get_currency_balance(data.code, request.query.account, data.symbol);
                 if (token_data.length > 0) {
                     const [amount, symbol] = token_data[0].split(" ");
                     const amount_arr = amount.split(".");
                     if (amount_arr.length === 2) {
                         precision = amount_arr[1].length;
-                        fastify.tokenCache.set(key, {precision});
+                        fastify.tokenCache.set(key, { precision });
                         console.log('Caching token precision -', key, precision);
                     }
                 }

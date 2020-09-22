@@ -1,6 +1,6 @@
-import {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
-import {ServerResponse} from "http";
-import {timedQuery} from "../../../helpers/functions";
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { ServerResponse } from "http";
+import { timedQuery } from "../../../helpers/functions";
 import * as _ from "lodash";
 
 interface getBlockTraceResponse {
@@ -28,7 +28,7 @@ async function getBlockTrace(fastify: FastifyInstance, request: FastifyRequest) 
             query: {
                 bool: {
                     must: [
-                        {term: {block_id: reqBody.block_id}}
+                        { term: { block_id: reqBody.block_id } }
                     ]
                 }
             }
@@ -39,20 +39,20 @@ async function getBlockTrace(fastify: FastifyInstance, request: FastifyRequest) 
                 query: {
                     bool: {
                         must: [
-                            {term: {block_num: targetBlock}}
+                            { term: { block_num: targetBlock } }
                         ]
                     }
                 }
             };
         } else if (targetBlock < 0) {
             searchBody = {
-                query: {match_all: {}},
-                sort: {block_num: "desc"}
+                query: { match_all: {} },
+                sort: { block_num: "desc" }
             }
         }
     }
 
-    const response = {transactions: []} as getBlockTraceResponse;
+    const response = { transactions: [] } as getBlockTraceResponse;
 
     if (searchBody) {
 
@@ -65,7 +65,7 @@ async function getBlockTrace(fastify: FastifyInstance, request: FastifyRequest) 
         if (getBlockHeader.body.hits.hits.length === 1) {
 
             const block = getBlockHeader.body.hits.hits[0]._source;
-            const info = await fastify.eosjs.rpc.get_info();
+            const info = await fastify.leopaysjs.rpc.get_info();
 
             response.id = block.block_id;
             response.number = block.block_num;
@@ -82,11 +82,11 @@ async function getBlockTrace(fastify: FastifyInstance, request: FastifyRequest) 
                     query: {
                         bool: {
                             must: [
-                                {term: {block_num: block.block_num}}
+                                { term: { block_num: block.block_num } }
                             ]
                         }
                     },
-                    sort: {global_sequence: "asc"}
+                    sort: { global_sequence: "asc" }
                 }
             });
 
@@ -102,13 +102,13 @@ async function getBlockTrace(fastify: FastifyInstance, request: FastifyRequest) 
                                 account: action.act.account,
                                 action: action.act.name,
                                 authorization: action.act.authorization.map(auth => {
-                                    return {account: auth.actor, permission: auth.permission};
+                                    return { account: auth.actor, permission: auth.permission };
                                 }),
                                 data: action.act.data
                             });
                         }
                     }
-                    response.transactions.push({id: key, actions: actArray});
+                    response.transactions.push({ id: key, actions: actArray });
                 });
             }
             return response;

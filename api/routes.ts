@@ -1,16 +1,16 @@
 import * as fastify_static from "fastify-static";
-import {join} from "path";
-import {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
-import {ServerResponse} from "http";
-import {createReadStream, existsSync, readFileSync, unlinkSync} from "fs";
+import { join } from "path";
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { ServerResponse } from "http";
+import { createReadStream, existsSync, readFileSync, unlinkSync } from "fs";
 import * as AutoLoad from "fastify-autoload";
-import {addSharedSchemas, handleChainApiRedirect} from "./helpers/functions";
+import { addSharedSchemas, handleChainApiRedirect } from "./helpers/functions";
 
 function addRedirect(server: FastifyInstance, url: string, redirectTo: string) {
     server.route({
         url,
         method: 'GET',
-        schema: {hide: true},
+        schema: { hide: true },
         handler: async (request: FastifyRequest, reply: FastifyReply<ServerResponse>) => {
             reply.redirect(redirectTo);
         }
@@ -21,7 +21,7 @@ function addRoute(server: FastifyInstance, handlersPath: string, prefix: string)
     server.register(AutoLoad, {
         dir: join(__dirname, 'routes', handlersPath),
         ignorePattern: /.*(handler|schema).js/,
-        options: {prefix}
+        options: { prefix }
     });
 }
 
@@ -68,7 +68,7 @@ export function registerRoutes(server: FastifyInstance) {
     // Serve integrated explorer
     if (server.manager.config.api.enable_explorer) {
 
-        server.register(require('fastify-compress'), {global: false});
+        server.register(require('fastify-compress'), { global: false });
 
         try {
             const _data = readFileSync(join(__dirname, '..', 'hyperion-explorer', 'src', 'manifest.webmanifest'));
@@ -131,7 +131,7 @@ export function registerRoutes(server: FastifyInstance) {
 
     if (server.manager.config.features.streaming) {
         // steam client lib
-        server.get('/stream-client.js', {schema: {tags: ['internal']}}, (request: FastifyRequest, reply: FastifyReply<ServerResponse>) => {
+        server.get('/stream-client.js', { schema: { tags: ['internal'] } }, (request: FastifyRequest, reply: FastifyReply<ServerResponse>) => {
             const stream = createReadStream('./client_bundle.js');
             reply.type('application/javascript').send(stream);
         });

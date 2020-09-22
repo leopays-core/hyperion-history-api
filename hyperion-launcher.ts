@@ -1,7 +1,7 @@
 import * as cluster from "cluster";
-import {ConfigurationModule} from "./modules/config";
-import {HyperionWorker} from "./workers/hyperionWorker";
-import {hLog} from "./helpers/common_functions";
+import { ConfigurationModule } from "./modules/config";
+import { HyperionWorker } from "./workers/hyperionWorker";
+import { hLog } from "./helpers/common_functions";
 
 interface WorkerEnv {
     worker_role: string;

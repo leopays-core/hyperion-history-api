@@ -1,6 +1,6 @@
-import {FastifyInstance} from "fastify";
-import {addApiRoute, getRouteName} from "../../../helpers/functions";
-import {getResourceUsageHandler} from "./get_resource_usage";
+import { FastifyInstance } from "fastify";
+import { addApiRoute, getRouteName } from "../../../helpers/functions";
+import { getResourceUsageHandler } from "./get_resource_usage";
 
 export default function (fastify: FastifyInstance, opts: any, next) {
     const schema = {

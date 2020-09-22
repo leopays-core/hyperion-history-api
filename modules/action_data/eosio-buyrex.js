@@ -1,8 +1,8 @@
 const hyperionModule = {
     chain: "*",
-    contract: 'eosio',
+    contract: 'lpc',
     action: 'buyrex',
-    parser_version: ['1.8','1.7'],
+    parser_version: ['1.8', '1.7'],
     handler: (action) => {
         // attach action extras here
         const data = action['act']['data'];
@@ -17,4 +17,4 @@ const hyperionModule = {
     }
 };
 
-module.exports = {hyperionModule};
+module.exports = { hyperionModule };

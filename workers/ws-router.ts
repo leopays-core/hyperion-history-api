@@ -1,9 +1,9 @@
-import {HyperionWorker} from "./hyperionWorker";
+import { HyperionWorker } from "./hyperionWorker";
 
 import * as IOServer from 'socket.io';
-import {checkFilter, hLog} from "../helpers/common_functions";
+import { checkFilter, hLog } from "../helpers/common_functions";
 
-const greylist = ['eosio.token'];
+const greylist = ['lpc.token'];
 
 export default class WSRouter extends HyperionWorker {
 
@@ -174,7 +174,7 @@ export default class WSRouter extends HyperionWorker {
         if (target.has(primary)) {
             target.get(primary).links.push(link);
         } else {
-            target.set(primary, {links: [link]});
+            target.set(primary, { links: [link] });
         }
     }
 
@@ -202,7 +202,7 @@ export default class WSRouter extends HyperionWorker {
         const req = data.request;
         console.log(req);
         if (typeof req.account !== 'string') {
-            return {status: 'FAIL', reason: 'invalid request'};
+            return { status: 'FAIL', reason: 'invalid request' };
         }
         if (greylist.indexOf(req.contract) !== -1) {
             if (req.account === '' || req.account === req.contract) {
@@ -226,7 +226,7 @@ export default class WSRouter extends HyperionWorker {
             if (req.account !== '') {
                 this.appendToL1Map(this.notifiedMap, req.account, link);
             } else {
-                return {status: 'FAIL', reason: 'invalid request'};
+                return { status: 'FAIL', reason: 'invalid request' };
             }
         }
         this.addToClientIndex(data, id, [req.contract, req.action, req.account]);
@@ -264,7 +264,7 @@ export default class WSRouter extends HyperionWorker {
             if (req.payer !== '' && req.payer !== '*') {
                 this.appendToL1Map(this.payerMap, req.payer, link);
             } else {
-                return {status: 'FAIL', reason: 'invalid request'};
+                return { status: 'FAIL', reason: 'invalid request' };
             }
         }
         this.addToClientIndex(data, id, [req.code, req.table, req.payer]);
@@ -320,7 +320,7 @@ export default class WSRouter extends HyperionWorker {
 
         this.io.on('connection', (socket) => {
             console.log(`[ROUTER] New relay connected with ID = ${socket.id}`);
-            this.relays[socket.id] = {clients: 0, connected: true};
+            this.relays[socket.id] = { clients: 0, connected: true };
             socket.on('event', (data, callback) => {
                 switch (data.type) {
                     case 'client_count': {
@@ -385,7 +385,7 @@ export default class WSRouter extends HyperionWorker {
     }
 
     ready() {
-        process.send({event: 'router_ready'});
+        process.send({ event: 'router_ready' });
     }
 
     private forwardActionMessage(msg: any, link: any, notified: string[]) {
@@ -405,7 +405,7 @@ export default class WSRouter extends HyperionWorker {
                 });
             }
             if (allow) {
-                relay.emit('trace', {client: link.client, message: msg});
+                relay.emit('trace', { client: link.client, message: msg });
                 this.totalRoutedMessages++;
             }
         }
@@ -428,7 +428,7 @@ export default class WSRouter extends HyperionWorker {
             //     });
             // }
             if (allow) {
-                relay.emit('delta', {client: link.client, message: msg});
+                relay.emit('delta', { client: link.client, message: msg });
                 this.totalRoutedMessages++;
             }
         }

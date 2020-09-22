@@ -1,7 +1,7 @@
-import {FastifyInstance} from "fastify";
-import {getAccountHandler} from "./get_account";
-import {addApiRoute, extendQueryStringSchema, extendResponseSchema, getRouteName} from "../../../helpers/functions";
-import {getActionResponseSchema} from "../../v2-history/get_actions";
+import { FastifyInstance } from "fastify";
+import { getAccountHandler } from "./get_account";
+import { addApiRoute, extendQueryStringSchema, extendResponseSchema, getRouteName } from "../../../helpers/functions";
+import { getActionResponseSchema } from "../../v2-history/get_actions";
 
 export default function (fastify: FastifyInstance, opts: any, next) {
     const schema = {
@@ -25,10 +25,10 @@ export default function (fastify: FastifyInstance, opts: any, next) {
                 items: {
                     type: 'object',
                     properties: {
-                        "timestamp": {type: "string"},
-                        "permission": {type: "string"},
-                        "code": {type: "string"},
-                        "action": {type: "string"},
+                        "timestamp": { type: "string" },
+                        "permission": { type: "string" },
+                        "code": { type: "string" },
+                        "action": { type: "string" },
                     }
                 }
             },
@@ -37,14 +37,14 @@ export default function (fastify: FastifyInstance, opts: any, next) {
                 items: {
                     type: 'object',
                     properties: {
-                        "symbol": {type: "string"},
-                        "precision": {type: "integer"},
-                        "amount": {type: "number"},
-                        "contract": {type: "string"},
+                        "symbol": { type: "string" },
+                        "precision": { type: "integer" },
+                        "amount": { type: "number" },
+                        "contract": { type: "string" },
                     }
                 }
             },
-            "total_actions": {type: "number"},
+            "total_actions": { type: "number" },
             "actions": {
                 type: "array",
                 items: {

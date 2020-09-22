@@ -1,6 +1,6 @@
-import {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
-import {ServerResponse} from "http";
-import {timedQuery} from "../../../helpers/functions";
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { ServerResponse } from "http";
+import { timedQuery } from "../../../helpers/functions";
 
 const percentiles = [1, 5, 25, 50, 75, 95, 99];
 
@@ -9,9 +9,9 @@ async function getResourceUsage(fastify: FastifyInstance, request: FastifyReques
         query: {
             bool: {
                 must: [
-                    {term: {"act.account": request.query.code}},
-                    {term: {"act.name": request.query.action}},
-                    {term: {"action_ordinal": {"value": 1}}},
+                    { term: { "act.account": request.query.code } },
+                    { term: { "act.name": request.query.action } },
+                    { term: { "action_ordinal": { "value": 1 } } },
                     {
                         range: {
                             "@timestamp": {
@@ -26,8 +26,8 @@ async function getResourceUsage(fastify: FastifyInstance, request: FastifyReques
         track_total_hits: true,
         size: 0,
         aggs: {
-            cpu_extended_stats: {extended_stats: {field: "cpu_usage_us"}},
-            net_extended_stats: {extended_stats: {field: "net_usage_words"}},
+            cpu_extended_stats: { extended_stats: { field: "cpu_usage_us" } },
+            net_extended_stats: { extended_stats: { field: "net_usage_words" } },
             cpu_percentiles: {
                 percentiles: {
                     field: "cpu_usage_us",

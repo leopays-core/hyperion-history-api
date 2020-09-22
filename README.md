@@ -2,7 +2,7 @@
 
 <img height="64" src="https://eosrio.io/hyperion.png">
 <br/>
-Scalable Full History API Solution for EOSIO based blockchains
+Scalable Full History API Solution for LeoPays blockchain
 
 Made with ♥ by [EOS Rio](https://eosrio.io/)
 

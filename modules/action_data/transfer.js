@@ -31,4 +31,4 @@ const hyperionModule = {
   },
 };
 
-module.exports = {hyperionModule};
+module.exports = { hyperionModule };

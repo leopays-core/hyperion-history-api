@@ -1,6 +1,6 @@
-import {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
-import {ServerResponse} from "http";
-import {getTrackTotalHits, timedQuery} from "../../../helpers/functions";
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { ServerResponse } from "http";
+import { getTrackTotalHits, timedQuery } from "../../../helpers/functions";
 
 async function getProposals(fastify: FastifyInstance, request: FastifyRequest) {
 
@@ -26,8 +26,8 @@ async function getProposals(fastify: FastifyInstance, request: FastifyRequest) {
         queryStruct.bool.must.push({
             "bool": {
                 "should": [
-                    {"term": {"requested_approvals.actor": request.query.account}},
-                    {"term": {"provided_approvals.actor": request.query.account}}
+                    { "term": { "requested_approvals.actor": request.query.account } },
+                    { "term": { "provided_approvals.actor": request.query.account } }
                 ]
             }
         });
@@ -35,27 +35,27 @@ async function getProposals(fastify: FastifyInstance, request: FastifyRequest) {
 
     // Filter by proposer account
     if (request.query.proposer) {
-        queryStruct.bool.must.push({"term": {"proposer": request.query.proposer}});
+        queryStruct.bool.must.push({ "term": { "proposer": request.query.proposer } });
     }
 
     // Filter by proposal name
     if (request.query.proposal) {
-        queryStruct.bool.must.push({"term": {"proposal_name": request.query.proposal}});
+        queryStruct.bool.must.push({ "term": { "proposal_name": request.query.proposal } });
     }
 
     // Filter by execution status
     if (typeof request.query.executed !== 'undefined') {
-        queryStruct.bool.must.push({"term": {"executed": request.query.executed}});
+        queryStruct.bool.must.push({ "term": { "executed": request.query.executed } });
     }
 
     // Filter by requested actors
     if (request.query.requested) {
-        queryStruct.bool.must.push({"term": {"requested_approvals.actor": request.query.requested}});
+        queryStruct.bool.must.push({ "term": { "requested_approvals.actor": request.query.requested } });
     }
 
     // Filter by provided actors
     if (request.query.provided) {
-        queryStruct.bool.must.push({"term": {"provided_approvals.actor": request.query.provided}});
+        queryStruct.bool.must.push({ "term": { "provided_approvals.actor": request.query.provided } });
     }
 
     // If no filter switch to full match
@@ -73,7 +73,7 @@ async function getProposals(fastify: FastifyInstance, request: FastifyRequest) {
         "body": {
             "track_total_hits": getTrackTotalHits(request.query),
             "query": queryStruct,
-            "sort": [{"block_num": "desc"}]
+            "sort": [{ "block_num": "desc" }]
         }
     });
 

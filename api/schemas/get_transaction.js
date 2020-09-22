@@ -1,7 +1,7 @@
 exports.GET = {
     description: 'get all actions belonging to the same transaction',
     summary: 'get transaction by id',
-    tags: ['transactions','history'],
+    tags: ['transactions', 'history'],
     querystring: {
         type: 'object',
         properties: {

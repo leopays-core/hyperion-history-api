@@ -1,5 +1,5 @@
 exports.GET = {
-    description: 'get token transfers utilizing the eosio.token standard',
+    description: 'get token transfers utilizing the lpc.token standard',
     summary: 'get token transfers',
     tags: ['history'],
     querystring: {
@@ -51,10 +51,10 @@ exports.GET = {
             },
         },
         "anyOf": [
-            {required: ["from"]},
-            {required: ["to"]},
-            {required: ["symbol"]},
-            {required: ["contract"]}
+            { required: ["from"] },
+            { required: ["to"] },
+            { required: ["symbol"] },
+            { required: ["contract"] }
         ]
     },
     response: {
@@ -75,18 +75,18 @@ exports.GET = {
                             "act": {
                                 type: 'object',
                                 properties: {
-                                    "account": {type: "string"},
-                                    "name": {type: "string"}
+                                    "account": { type: "string" },
+                                    "name": { type: "string" }
                                 },
                                 additionalProperties: true
                             },
-                            "@timestamp": {type: "string"},
-                            "block_num": {type: "number"},
-                            "producer": {type: "string"},
-                            "trx_id": {type: "string"},
-                            "parent": {type: "number"},
-                            "global_sequence": {type: "number"},
-                            "notified": {type: "array", items: {type: "string"}}
+                            "@timestamp": { type: "string" },
+                            "block_num": { type: "number" },
+                            "producer": { type: "string" },
+                            "trx_id": { type: "string" },
+                            "parent": { type: "number" },
+                            "global_sequence": { type: "number" },
+                            "notified": { type: "array", items: { type: "string" } }
                         }
                     }
                 }

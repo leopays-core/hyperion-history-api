@@ -1,4 +1,4 @@
-import {HyperionAction} from "./hyperion-action";
+import { HyperionAction } from "./hyperion-action";
 
 export interface ActionTrace {
     signatures: string[];

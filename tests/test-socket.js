@@ -1,4 +1,4 @@
-const {Serialize} = require('eosjs');
+const { Serialize } = require('@leopays-core/leopaysjs');
 const commander = require('commander');
 const WebSocket = require('ws');
 const txEnc = new TextEncoder();
@@ -6,7 +6,7 @@ const txDec = new TextDecoder();
 
 class Connection {
     // Connect to the State-History Plugin
-    constructor({socketAddress}) {
+    constructor({ socketAddress }) {
         // Protocol ABI
         this.abi = null;
 
@@ -17,21 +17,21 @@ class Connection {
         this.tables = new Map;
 
         // The socket
-        this.ws = new WebSocket(socketAddress, {perMessageDeflate: false});
+        this.ws = new WebSocket(socketAddress, { perMessageDeflate: false });
         this.ws.on('message', data => this.onMessage(data));
     }
 
     // Convert JSON to binary. type identifies one of the types in this.types.
     serialize(type, value) {
-        const buffer = new Serialize.SerialBuffer({textEncoder: txEnc, textDecoder: txDec});
+        const buffer = new Serialize.SerialBuffer({ textEncoder: txEnc, textDecoder: txDec });
         Serialize.getType(this.types, type).serialize(buffer, value);
         return buffer.asUint8Array();
     }
 
     // Convert binary to JSON. type identifies one of the types in this.types.
     deserialize(type, array) {
-        const buffer = new Serialize.SerialBuffer({textEncoder: txEnc, textDecoder: txDec, array});
-        return Serialize.getType(this.types, type).deserialize(buffer, new Serialize.SerializerState({bytesAsUint8Array: true}));
+        const buffer = new Serialize.SerialBuffer({ textEncoder: txEnc, textDecoder: txDec, array });
+        return Serialize.getType(this.types, type).deserialize(buffer, new Serialize.SerializerState({ bytesAsUint8Array: true }));
     }
 
     // Serialize a request and send it to the plugin
@@ -66,7 +66,7 @@ class Connection {
                 const [type, response] = this.deserialize('result', data);
                 this[type](response);
                 // Ack Block
-                this.send(['get_blocks_ack_request_v0', {num_messages: 1}]);
+                this.send(['get_blocks_ack_request_v0', { num_messages: 1 }]);
             }
         } catch (e) {
             console.log(e);

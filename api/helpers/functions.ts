@@ -249,7 +249,7 @@ export async function handleChainApiRedirect(
                 // if (request.req.url === '/v1/chain/push_transaction') {
                 //     const packedTrx = JSON.parse(opts['body']).packed_trx;
                 //     const trxBuffer = Buffer.from(packedTrx, 'hex');
-                //     const trxData = await fastify.eosjs.api.deserializeTransactionWithActions(trxBuffer);
+                //     const trxData = await fastify.leopaysjs.api.deserializeTransactionWithActions(trxBuffer);
                 //     console.log(trxData);
                 // }
             } catch (e) {

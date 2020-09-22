@@ -8,8 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    var _ = { label: 0, sent: function () { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function () { return this; }), g;
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var ecc = require("eosjs-ecc");
+var ecc = require("leopaysjs-ecc");
 var eosjs_jssig_1 = require("../eosjs-jssig");
 describe('JsSignatureProvider', function () {
     var privateKeys = ['key1', 'key2', 'key3'];
@@ -45,48 +45,52 @@ describe('JsSignatureProvider', function () {
         'PUB_K1_8f2o2LLQ3phteqyazxirQZnQzQFpnjLnXiUFEJcsSYhnjWNvSX',
         'PUB_K1_5imfbmmHC83VRxLRTcvovviAc6LPpyszcDuKtkwka9e9Jg37Hp',
     ];
-    it('builds public keys from private when constructed', function () { return __awaiter(_this, void 0, void 0, function () {
-        var eccPkFromString, provider, actualPublicKeys;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    eccPkFromString = jest.spyOn(ecc.PrivateKey, 'fromString');
-                    eccPkFromString.mockImplementation(function (k) { return ecc.PrivateKey.fromHex(ecc.sha256(k)); });
-                    provider = new eosjs_jssig_1.JsSignatureProvider(privateKeys);
-                    return [4 /*yield*/, provider.getAvailableKeys()];
-                case 1:
-                    actualPublicKeys = _a.sent();
-                    expect(eccPkFromString).toHaveBeenCalledTimes(privateKeys.length);
-                    expect(actualPublicKeys).toEqual(publicKeys);
-                    return [2 /*return*/];
-            }
+    it('builds public keys from private when constructed', function () {
+        return __awaiter(_this, void 0, void 0, function () {
+            var eccPkFromString, provider, actualPublicKeys;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        eccPkFromString = jest.spyOn(ecc.PrivateKey, 'fromString');
+                        eccPkFromString.mockImplementation(function (k) { return ecc.PrivateKey.fromHex(ecc.sha256(k)); });
+                        provider = new eosjs_jssig_1.JsSignatureProvider(privateKeys);
+                        return [4 /*yield*/, provider.getAvailableKeys()];
+                    case 1:
+                        actualPublicKeys = _a.sent();
+                        expect(eccPkFromString).toHaveBeenCalledTimes(privateKeys.length);
+                        expect(actualPublicKeys).toEqual(publicKeys);
+                        return [2 /*return*/];
+                }
+            });
         });
-    }); });
-    it('signs a transaction', function () { return __awaiter(_this, void 0, void 0, function () {
-        var eccSignatureSign, provider, chainId, requiredKeys, serializedTransaction, abis, signOutput;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    eccSignatureSign = jest.spyOn(ecc.Signature, 'sign');
-                    eccSignatureSign.mockImplementation(function (buffer, signKey) { return signKey; });
-                    provider = new eosjs_jssig_1.JsSignatureProvider(privateKeys);
-                    chainId = '12345';
-                    requiredKeys = [
-                        publicKeys[0],
-                        publicKeys[2],
-                    ];
-                    serializedTransaction = new Uint8Array([
-                        0, 16, 32, 128, 255,
-                    ]);
-                    abis = [];
-                    return [4 /*yield*/, provider.sign({ chainId: chainId, requiredKeys: requiredKeys, serializedTransaction: serializedTransaction, abis: abis })];
-                case 1:
-                    signOutput = _a.sent();
-                    expect(eccSignatureSign).toHaveBeenCalledTimes(2);
-                    expect(signOutput).toEqual({ signatures: [privateKeys[0], privateKeys[2]], serializedTransaction: serializedTransaction });
-                    return [2 /*return*/];
-            }
+    });
+    it('signs a transaction', function () {
+        return __awaiter(_this, void 0, void 0, function () {
+            var eccSignatureSign, provider, chainId, requiredKeys, serializedTransaction, abis, signOutput;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        eccSignatureSign = jest.spyOn(ecc.Signature, 'sign');
+                        eccSignatureSign.mockImplementation(function (buffer, signKey) { return signKey; });
+                        provider = new eosjs_jssig_1.JsSignatureProvider(privateKeys);
+                        chainId = '12345';
+                        requiredKeys = [
+                            publicKeys[0],
+                            publicKeys[2],
+                        ];
+                        serializedTransaction = new Uint8Array([
+                            0, 16, 32, 128, 255,
+                        ]);
+                        abis = [];
+                        return [4 /*yield*/, provider.sign({ chainId: chainId, requiredKeys: requiredKeys, serializedTransaction: serializedTransaction, abis: abis })];
+                    case 1:
+                        signOutput = _a.sent();
+                        expect(eccSignatureSign).toHaveBeenCalledTimes(2);
+                        expect(signOutput).toEqual({ signatures: [privateKeys[0], privateKeys[2]], serializedTransaction: serializedTransaction });
+                        return [2 /*return*/];
+                }
+            });
         });
-    }); });
+    });
 });
 //# sourceMappingURL=eosjs-jssig.test.js.map

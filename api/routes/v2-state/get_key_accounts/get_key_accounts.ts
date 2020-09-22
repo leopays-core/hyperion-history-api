@@ -1,8 +1,8 @@
-import {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
-import {ServerResponse} from "http";
-import {timedQuery} from "../../../helpers/functions";
-import {Numeric} from "eosjs/dist";
-import {getSkipLimit} from "../../v2-history/get_actions/functions";
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { ServerResponse } from "http";
+import { timedQuery } from "../../../helpers/functions";
+import { Numeric } from "@leopays-core/leopaysjs/dist";
+import { getSkipLimit } from "../../v2-history/get_actions/functions";
 
 function invalidKey() {
     const err: any = new Error();
@@ -18,14 +18,14 @@ async function getKeyAccounts(fastify: FastifyInstance, request: FastifyRequest)
         request.body = JSON.parse(request.body);
     }
 
-    const {skip, limit} = getSkipLimit(request.query);
+    const { skip, limit } = getSkipLimit(request.query);
     const maxDocs = fastify.manager.config.api.limits.get_key_accounts ?? 1000;
 
     const public_Key = request.req.method === 'POST' ? request.body.public_key : request.query.public_key;
 
     if (public_Key.startsWith("PUB_")) {
         publicKey = public_Key;
-    } else if (public_Key.startsWith("EOS")) {
+    } else if (public_Key.startsWith("LPC")) {
         try {
             publicKey = Numeric.convertLegacyPublicKey(public_Key);
         } catch (e) {
@@ -88,14 +88,14 @@ async function getKeyAccounts(fastify: FastifyInstance, request: FastifyRequest)
         query: {
             bool: {
                 should: [
-                    {term: {"@updateauth.auth.keys.key.keyword": publicKey}},
-                    {term: {"@newaccount.active.keys.key.keyword": publicKey}},
-                    {term: {"@newaccount.owner.keys.key.keyword": publicKey}}
+                    { term: { "@updateauth.auth.keys.key.keyword": publicKey } },
+                    { term: { "@newaccount.active.keys.key.keyword": publicKey } },
+                    { term: { "@newaccount.owner.keys.key.keyword": publicKey } }
                 ],
                 minimum_should_match: 1
             }
         },
-        sort: [{"global_sequence": {"order": "desc"}}]
+        sort: [{ "global_sequence": { "order": "desc" } }]
     };
 
     const results = await fastify.elastic.search({

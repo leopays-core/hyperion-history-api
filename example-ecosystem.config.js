@@ -1,4 +1,4 @@
-const {addApiServer, addIndexer} = require("./definitions/ecosystem_settings");
+const { addApiServer, addIndexer } = require("./definitions/ecosystem_settings");
 
 module.exports = {
     apps: [

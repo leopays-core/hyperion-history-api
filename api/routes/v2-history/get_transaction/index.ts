@@ -1,6 +1,6 @@
-import {FastifyInstance} from "fastify";
-import {getTransactionHandler} from "./get_transaction";
-import {addApiRoute, getRouteName} from "../../../helpers/functions";
+import { FastifyInstance } from "fastify";
+import { getTransactionHandler } from "./get_transaction";
+import { addApiRoute, getRouteName } from "../../../helpers/functions";
 
 export default function (fastify: FastifyInstance, opts: any, next) {
     const schema = {

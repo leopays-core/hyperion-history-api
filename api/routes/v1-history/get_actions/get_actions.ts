@@ -1,6 +1,6 @@
-import {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
-import {ServerResponse} from "http";
-import {mergeActionMeta, timedQuery} from "../../../helpers/functions";
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { ServerResponse } from "http";
+import { mergeActionMeta, timedQuery } from "../../../helpers/functions";
 import * as flatstr from 'flatstr';
 
 const terms = ["notified", "act.authorization.actor"];
@@ -15,7 +15,7 @@ async function getActions(fastify: FastifyInstance, request: FastifyRequest) {
     const reqBody = request.body;
     const should_array = [];
     for (const entry of terms) {
-        const tObj = {term: {}};
+        const tObj = { term: {} };
         tObj.term[entry] = reqBody.account_name;
         should_array.push(tObj);
     }
@@ -25,15 +25,15 @@ async function getActions(fastify: FastifyInstance, request: FastifyRequest) {
     if (reqBody.filter) {
         const filters = reqBody.filter.split(',');
         for (const filter of filters) {
-            const obj = {bool: {must: []}};
+            const obj = { bool: { must: [] } };
             const parts = filter.split(':');
             if (parts.length === 2) {
                 [code, method] = parts;
                 if (code && code !== "*") {
-                    obj.bool.must.push({'term': {'act.account': code}});
+                    obj.bool.must.push({ 'term': { 'act.account': code } });
                 }
                 if (method && method !== "*") {
-                    obj.bool.must.push({'term': {'act.name': method}});
+                    obj.bool.must.push({ 'term': { 'act.name': method } });
                 }
             }
             filterObj.push(obj);
@@ -86,7 +86,7 @@ async function getActions(fastify: FastifyInstance, request: FastifyRequest) {
     }
 
     if (reqBody.account_name) {
-        queryStruct.bool.must.push({"bool": {should: should_array}});
+        queryStruct.bool.must.push({ "bool": { should: should_array } });
     }
 
     for (const prop in reqBody) {
@@ -96,11 +96,11 @@ async function getActions(fastify: FastifyInstance, request: FastifyRequest) {
                 if (extendedActions.has(actionName)) {
                     const _termQuery = {};
                     _termQuery["@" + prop] = reqBody[prop];
-                    queryStruct.bool.must.push({term: _termQuery});
+                    queryStruct.bool.must.push({ term: _termQuery });
                 } else {
                     const _termQuery = {};
                     _termQuery[prop] = reqBody[prop];
-                    queryStruct.bool.must.push({term: _termQuery});
+                    queryStruct.bool.must.push({ term: _termQuery });
                 }
             }
         }
@@ -113,7 +113,7 @@ async function getActions(fastify: FastifyInstance, request: FastifyRequest) {
         if (reqBody['after']) _gte = reqBody['after'];
         if (!queryStruct.bool['filter']) queryStruct.bool['filter'] = [];
         queryStruct.bool['filter'].push({
-            range: {"@timestamp": {"gte": _gte, "lte": _lte}}
+            range: { "@timestamp": { "gte": _gte, "lte": _lte } }
         });
     }
     if (reqBody.filter) {
@@ -131,7 +131,7 @@ async function getActions(fastify: FastifyInstance, request: FastifyRequest) {
             }
         }
     };
-    const pResults = await Promise.all([fastify.eosjs.rpc.get_info(), fastify.elastic['search'](esOpts)]);
+    const pResults = await Promise.all([fastify.leopaysjs.rpc.get_info(), fastify.elastic['search'](esOpts)]);
     const results = pResults[1];
     const response = {
         actions: [],

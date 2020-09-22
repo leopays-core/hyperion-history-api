@@ -7,7 +7,7 @@ const hyperionModule = {
     action: {
       '@bprewdupdate': {
         'properties': {
-          'amount': {'type': 'long'},
+          'amount': { 'type': 'long' },
         },
       },
     },
@@ -22,4 +22,4 @@ const hyperionModule = {
   },
 };
 
-module.exports = {hyperionModule};
+module.exports = { hyperionModule };

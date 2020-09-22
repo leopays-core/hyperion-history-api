@@ -1,6 +1,6 @@
-import {FastifyInstance} from "fastify";
-import {getKeyAccountsHandler} from "./get_key_accounts";
-import {addApiRoute, extendQueryStringSchema, getRouteName} from "../../../helpers/functions";
+import { FastifyInstance } from "fastify";
+import { getKeyAccountsHandler } from "./get_key_accounts";
+import { addApiRoute, extendQueryStringSchema, getRouteName } from "../../../helpers/functions";
 
 export default function (fastify: FastifyInstance, opts: any, next) {
 
@@ -25,20 +25,20 @@ export default function (fastify: FastifyInstance, opts: any, next) {
                 properties: {
                     "account_names": {
                         type: "array",
-                        items: {type: "string"}
+                        items: { type: "string" }
                     },
                     "permissions": {
                         type: "array",
                         items: {
                             type: "object",
                             properties: {
-                                owner: {type: 'string'},
-                                block_num: {type: 'integer'},
-                                parent: {type: 'string'},
-                                last_updated: {type: 'string'},
+                                owner: { type: 'string' },
+                                block_num: { type: 'integer' },
+                                parent: { type: 'string' },
+                                last_updated: { type: 'string' },
                                 auth: {},
-                                name: {type: 'string'},
-                                present: {type: 'boolean'}
+                                name: { type: 'string' },
+                                present: { type: 'boolean' }
                             }
                         }
                     }

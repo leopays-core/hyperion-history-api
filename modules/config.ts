@@ -1,6 +1,6 @@
-import {existsSync, readFileSync, writeFileSync} from "fs";
-import {HyperionConnections} from "../interfaces/hyperionConnections";
-import {HyperionConfig} from "../interfaces/hyperionConfig";
+import { existsSync, readFileSync, writeFileSync } from "fs";
+import { HyperionConnections } from "../interfaces/hyperionConnections";
+import { HyperionConfig } from "../interfaces/hyperionConfig";
 
 export interface Filters {
     action_blacklist: Set<string>;
@@ -34,14 +34,14 @@ export class ConfigurationModule {
             this.config.indexer.fetch_block = false;
         }
 
-        this.EOSIO_ALIAS = 'eosio';
+        this.EOSIO_ALIAS = 'lpc';
         if (this.config.settings.eosio_alias) {
             this.EOSIO_ALIAS = this.config.settings.eosio_alias;
         } else {
-            this.config.settings.eosio_alias = 'eosio';
+            this.config.settings.eosio_alias = 'lpc';
         }
 
-        // append default blacklists (eosio::onblock & eosio.null)
+        // append default blacklists (lpc::onblock & lpc.null)
         this.filters.action_blacklist.add(`${this.config.settings.chain}::${this.EOSIO_ALIAS}::onblock`);
         this.filters.action_blacklist.add(`${this.config.settings.chain}::${this.EOSIO_ALIAS}.null::*`);
 

@@ -1,8 +1,8 @@
-import {IncomingMessage, Server, ServerResponse} from "http";
-import {Client} from "@elastic/elasticsearch";
-import {Redis} from "ioredis";
-import {ConnectionManager} from "../../connections/manager.class";
-import {JsonRpc, Api} from "eosjs/dist";
+import { IncomingMessage, Server, ServerResponse } from "http";
+import { Client } from "@elastic/elasticsearch";
+import { Redis } from "ioredis";
+import { ConnectionManager } from "../../connections/manager.class";
+import { JsonRpc, Api } from "@leopays-core/leopaysjs/dist";
 
 declare module 'fastify' {
 
@@ -13,7 +13,7 @@ declare module 'fastify' {
         manager: ConnectionManager
         redis: Redis;
         elastic: Client;
-        eosjs: {
+        leopaysjs: {
             rpc: JsonRpc,
             api: Api
         },

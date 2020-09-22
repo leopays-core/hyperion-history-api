@@ -1,6 +1,6 @@
-import {FastifyInstance} from "fastify";
-import {addApiRoute, getRouteName} from "../../../helpers/functions";
-import {getActionsHandler} from "./get_actions";
+import { FastifyInstance } from "fastify";
+import { addApiRoute, getRouteName } from "../../../helpers/functions";
+import { getActionsHandler } from "./get_actions";
 
 export default function (fastify: FastifyInstance, opts: any, next) {
 
@@ -57,46 +57,46 @@ export default function (fastify: FastifyInstance, opts: any, next) {
             200: {
                 type: 'object',
                 properties: {
-                    query_time: {type: 'number'},
-                    last_irreversible_block: {type: 'number'},
+                    query_time: { type: 'number' },
+                    last_irreversible_block: { type: 'number' },
                     actions: {
                         type: 'array',
                         items: {
                             type: 'object',
                             properties: {
-                                account_action_seq: {type: 'number'},
-                                global_action_seq: {type: 'number'},
-                                block_num: {type: 'number'},
-                                block_time: {type: 'string'},
+                                account_action_seq: { type: 'number' },
+                                global_action_seq: { type: 'number' },
+                                block_num: { type: 'number' },
+                                block_time: { type: 'string' },
                                 action_trace: {
                                     type: 'object',
                                     properties: {
-                                        action_ordinal: {type: 'number'},
-                                        creator_action_ordinal: {type: 'number'},
+                                        action_ordinal: { type: 'number' },
+                                        creator_action_ordinal: { type: 'number' },
                                         receipt: {
                                             type: 'object',
                                             properties: {
-                                                receiver: {type: 'string'},
-                                                global_sequence: {type: 'number'},
-                                                recv_sequence: {type: 'number'},
+                                                receiver: { type: 'string' },
+                                                global_sequence: { type: 'number' },
+                                                recv_sequence: { type: 'number' },
                                                 auth_sequence: {
                                                     type: 'array',
                                                     items: {
                                                         type: 'object',
                                                         properties: {
-                                                            account: {type: 'string'},
-                                                            sequence: {type: 'number'}
+                                                            account: { type: 'string' },
+                                                            sequence: { type: 'number' }
                                                         }
                                                     }
                                                 }
                                             }
                                         },
-                                        receiver: {type: 'string'},
+                                        receiver: { type: 'string' },
                                         act: {
                                             type: 'object',
                                             properties: {
-                                                account: {type: 'string'},
-                                                name: {type: 'string'},
+                                                account: { type: 'string' },
+                                                name: { type: 'string' },
                                                 authorization: {
                                                     type: 'array',
                                                     items: {
@@ -104,13 +104,13 @@ export default function (fastify: FastifyInstance, opts: any, next) {
                                                         additionalProperties: true,
                                                     }
                                                 },
-                                                data: {type: 'object', additionalProperties: true},
-                                                hex_data: {type: 'string'}
+                                                data: { type: 'object', additionalProperties: true },
+                                                hex_data: { type: 'string' }
                                             }
                                         },
-                                        trx_id: {type: 'string'},
-                                        block_num: {type: 'number'},
-                                        block_time: {type: 'string'}
+                                        trx_id: { type: 'string' },
+                                        block_num: { type: 'number' },
+                                        block_time: { type: 'string' }
                                     }
                                 }
                             }

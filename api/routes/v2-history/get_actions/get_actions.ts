@@ -1,6 +1,6 @@
-import {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
-import {ServerResponse} from "http";
-import {getTrackTotalHits, mergeActionMeta, timedQuery} from "../../../helpers/functions";
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { ServerResponse } from "http";
+import { getTrackTotalHits, mergeActionMeta, timedQuery } from "../../../helpers/functions";
 import {
     addSortedBy,
     applyAccountFilters,
@@ -21,7 +21,7 @@ async function getActions(fastify: FastifyInstance, request: FastifyRequest) {
         }
     };
 
-    const {skip, limit} = getSkipLimit(query);
+    const { skip, limit } = getSkipLimit(query);
     const sort_direction = getSortDir(query);
     applyAccountFilters(query, queryStruct);
     applyGenericFilters(query, queryStruct);
@@ -56,7 +56,7 @@ async function getActions(fastify: FastifyInstance, request: FastifyRequest) {
     };
 
     if (query.checkLib) {
-        response.lib = (await fastify.eosjs.rpc.get_info()).last_irreversible_block_num;
+        response.lib = (await fastify.leopaysjs.rpc.get_info()).last_irreversible_block_num;
     }
 
     if (query.simple) {

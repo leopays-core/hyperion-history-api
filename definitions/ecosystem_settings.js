@@ -34,4 +34,4 @@ function addApiServer(chainName, threads) {
   };
 }
 
-module.exports = {addIndexer, addApiServer};
+module.exports = { addIndexer, addApiServer };

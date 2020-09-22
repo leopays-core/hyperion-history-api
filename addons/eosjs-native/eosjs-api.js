@@ -4,7 +4,7 @@
  */
 // copyright defined in eosjs/LICENSE.txt
 var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
+    __assign = Object.assign || function (t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
             s = arguments[i];
             for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
@@ -23,8 +23,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    var _ = { label: 0, sent: function () { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function () { return this; }), g;
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
@@ -186,20 +186,22 @@ var Api = /** @class */ (function () {
             return __generator(this, function (_a) {
                 accounts = transaction.actions.map(function (action) { return action.account; });
                 uniqueAccounts = new Set(accounts);
-                actionPromises = __spread(uniqueAccounts).map(function (account) { return __awaiter(_this, void 0, void 0, function () {
-                    var _a;
-                    return __generator(this, function (_b) {
-                        switch (_b.label) {
-                            case 0:
-                                _a = {
-                                    accountName: account
-                                };
-                                return [4 /*yield*/, this.getCachedAbi(account, reload)];
-                            case 1: return [2 /*return*/, (_a.abi = (_b.sent()).rawAbi,
+                actionPromises = __spread(uniqueAccounts).map(function (account) {
+                    return __awaiter(_this, void 0, void 0, function () {
+                        var _a;
+                        return __generator(this, function (_b) {
+                            switch (_b.label) {
+                                case 0:
+                                    _a = {
+                                        accountName: account
+                                    };
+                                    return [4 /*yield*/, this.getCachedAbi(account, reload)];
+                                case 1: return [2 /*return*/, (_a.abi = (_b.sent()).rawAbi,
                                     _a)];
-                        }
+                            }
+                        });
                     });
-                }); });
+                });
                 return [2 /*return*/, Promise.all(actionPromises)];
             });
         });
@@ -267,19 +269,19 @@ var Api = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, Promise.all(actions.map(function (_a) {
-                            var account = _a.account, name = _a.name, authorization = _a.authorization, data = _a.data;
-                            return __awaiter(_this, void 0, void 0, function () {
-                                var contract;
-                                return __generator(this, function (_b) {
-                                    switch (_b.label) {
-                                        case 0: return [4 /*yield*/, this.getContract(account)];
-                                        case 1:
-                                            contract = _b.sent();
-                                            return [2 /*return*/, ser.serializeAction(contract, account, name, authorization, data, this.textEncoder, this.textDecoder)];
-                                    }
-                                });
+                        var account = _a.account, name = _a.name, authorization = _a.authorization, data = _a.data;
+                        return __awaiter(_this, void 0, void 0, function () {
+                            var contract;
+                            return __generator(this, function (_b) {
+                                switch (_b.label) {
+                                    case 0: return [4 /*yield*/, this.getContract(account)];
+                                    case 1:
+                                        contract = _b.sent();
+                                        return [2 /*return*/, ser.serializeAction(contract, account, name, authorization, data, this.textEncoder, this.textDecoder)];
+                                }
                             });
-                        }))];
+                        });
+                    }))];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -292,19 +294,19 @@ var Api = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, Promise.all(actions.map(function (_a) {
-                            var account = _a.account, name = _a.name, authorization = _a.authorization, data = _a.data;
-                            return __awaiter(_this, void 0, void 0, function () {
-                                var contract;
-                                return __generator(this, function (_b) {
-                                    switch (_b.label) {
-                                        case 0: return [4 /*yield*/, this.getContract(account)];
-                                        case 1:
-                                            contract = _b.sent();
-                                            return [2 /*return*/, ser.deserializeAction(contract, account, name, authorization, data, this.textEncoder, this.textDecoder)];
-                                    }
-                                });
+                        var account = _a.account, name = _a.name, authorization = _a.authorization, data = _a.data;
+                        return __awaiter(_this, void 0, void 0, function () {
+                            var contract;
+                            return __generator(this, function (_b) {
+                                switch (_b.label) {
+                                    case 0: return [4 /*yield*/, this.getContract(account)];
+                                    case 1:
+                                        contract = _b.sent();
+                                        return [2 /*return*/, ser.deserializeAction(contract, account, name, authorization, data, this.textEncoder, this.textDecoder)];
+                                }
                             });
-                        }))];
+                        });
+                    }))];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -387,11 +389,11 @@ var Api = /** @class */ (function () {
                     case 10:
                         requiredKeys = _g.sent();
                         return [4 /*yield*/, this.signatureProvider.sign({
-                                chainId: this.chainId,
-                                requiredKeys: requiredKeys,
-                                serializedTransaction: serializedTransaction,
-                                abis: abis,
-                            })];
+                            chainId: this.chainId,
+                            requiredKeys: requiredKeys,
+                            serializedTransaction: serializedTransaction,
+                            abis: abis,
+                        })];
                     case 11:
                         pushTransactionArgs = _g.sent();
                         _g.label = 12;
@@ -410,9 +412,9 @@ var Api = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_b) {
                 return [2 /*return*/, this.rpc.push_transaction({
-                        signatures: signatures,
-                        serializedTransaction: serializedTransaction,
-                    })];
+                    signatures: signatures,
+                    serializedTransaction: serializedTransaction,
+                })];
             });
         });
     };

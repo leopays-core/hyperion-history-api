@@ -1,15 +1,15 @@
-import {HyperionWorker} from "./hyperionWorker";
-import {Api} from "eosjs/dist";
-import {ApiResponse} from "@elastic/elasticsearch";
-import {AsyncCargo, AsyncQueue, cargo, queue} from 'async';
+import { HyperionWorker } from "./hyperionWorker";
+import { Api } from "@leopays-core/leopaysjs/dist";
+import { ApiResponse } from "@elastic/elasticsearch";
+import { AsyncCargo, AsyncQueue, cargo, queue } from 'async';
 import * as AbiEOS from "@eosrio/node-abieos";
-import {Serialize} from "../addons/eosjs-native";
-import {Type} from "../addons/eosjs-native/eosjs-serialize";
-import {debugLog, hLog} from "../helpers/common_functions";
-import {createHash} from "crypto";
+import { Serialize } from "../addons/eosjs-native";
+import { Type } from "../addons/eosjs-native/eosjs-serialize";
+import { debugLog, hLog } from "../helpers/common_functions";
+import { createHash } from "crypto";
 
 const index_queues = require('../definitions/index-queues').index_queues;
-const {AbiDefinitions} = require("../definitions/abi_def");
+const { AbiDefinitions } = require("../definitions/abi_def");
 const abi_remapping = {
     "_Bool": "bool"
 };
@@ -77,7 +77,7 @@ export default class MainDSWorker extends HyperionWorker {
 
         this.preIndexingQueue = queue((data, cb) => {
             if (this.ch_ready) {
-                this.ch.sendToQueue(data.queue, data.content, {headers: data.headers});
+                this.ch.sendToQueue(data.queue, data.content, { headers: data.headers });
                 cb();
             } else {
                 hLog('Channel is not ready!');
@@ -165,7 +165,7 @@ export default class MainDSWorker extends HyperionWorker {
                     m = this.conf.scaling.ad_idx_queues;
                 }
                 for (let j = 0; j < m; j++) {
-                    this.ch.assertQueue(q.name + ":" + (qIdx + 1), {durable: true});
+                    this.ch.assertQueue(q.name + ":" + (qIdx + 1), { durable: true });
                     qIdx++;
                 }
             }
@@ -417,7 +417,7 @@ export default class MainDSWorker extends HyperionWorker {
         if (trace['action_traces'][0] && trace['action_traces'][0].length === 2) {
             first_action = trace['action_traces'][0][1];
 
-            // replace first action if the root is eosio.null::nonce
+            // replace first action if the root is lpc.null::nonce
             if (first_action.act.account === this.conf.settings.eosio_alias + '.null' && first_action.act.name === 'nonce') {
                 if (trace['action_traces'][1] && trace['action_traces'][1].length === 2) {
                     first_action = trace['action_traces'][1][1];
@@ -500,7 +500,7 @@ export default class MainDSWorker extends HyperionWorker {
 
         const pool_queue = `${this.chain}:ds_pool:${selected_q}`;
         if (this.ch_ready) {
-            this.ch.sendToQueue(pool_queue, Buffer.from(JSON.stringify(trace)), {headers});
+            this.ch.sendToQueue(pool_queue, Buffer.from(JSON.stringify(trace)), { headers });
             return true;
         } else {
             return false;
@@ -508,7 +508,7 @@ export default class MainDSWorker extends HyperionWorker {
     }
 
     createSerialBuffer(inputArray) {
-        return new Serialize.SerialBuffer({textEncoder: this.txEnc, textDecoder: this.txDec, array: inputArray});
+        return new Serialize.SerialBuffer({ textEncoder: this.txEnc, textDecoder: this.txDec, array: inputArray });
     }
 
     async fetchAbiHexAtBlockElastic(contract_name, last_block, get_json) {
@@ -522,8 +522,8 @@ export default class MainDSWorker extends HyperionWorker {
             const query = {
                 bool: {
                     must: [
-                        {term: {account: contract_name}},
-                        {range: {block: {lte: last_block}}}
+                        { term: { account: contract_name } },
+                        { range: { block: { lte: last_block } } }
                     ]
                 }
             };
@@ -531,8 +531,8 @@ export default class MainDSWorker extends HyperionWorker {
                 index: `${this.chain}-abi-*`,
                 body: {
                     size: 1, query,
-                    sort: [{block: {order: "desc"}}],
-                    _source: {includes: _includes}
+                    sort: [{ block: { order: "desc" } }],
+                    _source: { includes: _includes }
                 }
             });
             const results = queryResult.body.hits.hits;
@@ -544,13 +544,13 @@ export default class MainDSWorker extends HyperionWorker {
                         query: {
                             bool: {
                                 must: [
-                                    {term: {account: contract_name}},
-                                    {range: {block: {gte: last_block}}}
+                                    { term: { account: contract_name } },
+                                    { range: { block: { gte: last_block } } }
                                 ]
                             }
                         },
-                        sort: [{block: {order: "asc"}}],
-                        _source: {includes: ["block"]}
+                        sort: [{ block: { order: "asc" } }],
+                        _source: { includes: ["block"] }
                     }
                 });
                 const nextRef = nextRefResponse.body.hits.hits;
@@ -571,7 +571,7 @@ export default class MainDSWorker extends HyperionWorker {
     }
 
     registerAutoBlacklist(contract, field, type, block, valid_until) {
-        const info = {field, type, block, valid_until};
+        const info = { field, type, block, valid_until };
         if (!this.autoBlacklist.has(contract)) {
             this.autoBlacklist.set(contract, [info]);
         } else {
@@ -685,7 +685,7 @@ export default class MainDSWorker extends HyperionWorker {
         } catch (e) {
             hLog(e);
         }
-        return {abi: _abi, valid_until: null, valid_from: null};
+        return { abi: _abi, valid_until: null, valid_from: null };
     }
 
     async getContractAtBlock(accountName: string, block_num: number, check_action?: string) {
@@ -732,10 +732,10 @@ export default class MainDSWorker extends HyperionWorker {
             }
         }
         const actions = new Map();
-        for (const {name, type} of abi.actions) {
+        for (const { name, type } of abi.actions) {
             actions.set(name, Serialize.getType(types, type));
         }
-        const result = {types, actions, tables: abi.tables};
+        const result = { types, actions, tables: abi.tables };
         if (check_action) {
             if (actions.has(check_action)) {
                 try {
@@ -923,7 +923,7 @@ export default class MainDSWorker extends HyperionWorker {
         this.preIndexingQueue.push({
             queue: q,
             content: bufferData,
-            headers: {block_num}
+            headers: { block_num }
         });
         this.delta_emit_idx++;
         if (this.delta_emit_idx > this.conf.scaling.ad_idx_queues) {
@@ -936,7 +936,7 @@ export default class MainDSWorker extends HyperionWorker {
         this.preIndexingQueue.push({
             queue: q,
             content: Buffer.from(JSON.stringify(data)),
-            headers: {type}
+            headers: { type }
         });
         this.emit_idx++;
         if (this.emit_idx > this.conf.scaling.indexing_queues) {
@@ -1053,7 +1053,7 @@ export default class MainDSWorker extends HyperionWorker {
                     hLog(`Failed to process ABI from ${account['name']} at ${block_num}: ${e.message}`);
                 }
             } else {
-                if (account.name === 'eosio') {
+                if (account.name === 'lpc') {
                     hLog(`---------- ${block_num} ----------------`);
                     hLog(account);
                 }
@@ -1482,10 +1482,10 @@ export default class MainDSWorker extends HyperionWorker {
             delta['@approvals'] = {
                 proposal_name: delta['data']['proposal_name'],
                 requested_approvals: delta['data']['requested_approvals'].map((item) => {
-                    return {actor: item.level.actor, permission: item.level.permission, time: item.time};
+                    return { actor: item.level.actor, permission: item.level.permission, time: item.time };
                 }),
                 provided_approvals: delta['data']['provided_approvals'].map((item) => {
-                    return {actor: item.level.actor, permission: item.level.permission, time: item.time};
+                    return { actor: item.level.actor, permission: item.level.permission, time: item.time };
                 })
             };
             if (this.conf.features.tables.proposals) {

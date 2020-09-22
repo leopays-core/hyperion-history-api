@@ -1,6 +1,6 @@
-import {FastifyInstance, RouteSchema} from "fastify";
-import {getCreatedAccountsHandler} from "./get_created_accounts";
-import {addApiRoute, extendQueryStringSchema, extendResponseSchema, getRouteName} from "../../../helpers/functions";
+import { FastifyInstance, RouteSchema } from "fastify";
+import { getCreatedAccountsHandler } from "./get_created_accounts";
+import { addApiRoute, extendQueryStringSchema, extendResponseSchema, getRouteName } from "../../../helpers/functions";
 
 export default function (fastify: FastifyInstance, opts: any, next) {
     const schema: RouteSchema = {
@@ -22,8 +22,8 @@ export default function (fastify: FastifyInstance, opts: any, next) {
             "total": {
                 type: "object",
                 properties: {
-                    "value": {type: "number"},
-                    "relation": {type: "string"}
+                    "value": { type: "number" },
+                    "relation": { type: "string" }
                 }
             },
             "accounts": {
@@ -31,9 +31,9 @@ export default function (fastify: FastifyInstance, opts: any, next) {
                 items: {
                     type: 'object',
                     properties: {
-                        'name': {type: 'string'},
-                        'timestamp': {type: 'string'},
-                        'trx_id': {type: 'string'}
+                        'name': { type: 'string' },
+                        'timestamp': { type: 'string' },
+                        'trx_id': { type: 'string' }
                     }
                 }
             }

@@ -1,6 +1,6 @@
-import {FastifyInstance} from "fastify";
-import {addApiRoute, extendResponseSchema, getRouteName} from "../../../helpers/functions";
-import {getMissedBlocksHandler} from "./get_missed_blocks";
+import { FastifyInstance } from "fastify";
+import { addApiRoute, extendResponseSchema, getRouteName } from "../../../helpers/functions";
+import { getMissedBlocksHandler } from "./get_missed_blocks";
 
 export default function (fastify: FastifyInstance, opts: any, next) {
     const schema = {
@@ -41,11 +41,11 @@ export default function (fastify: FastifyInstance, opts: any, next) {
                 items: {
                     type: "object",
                     properties: {
-                        "@timestamp": {type: "string"},
-                        "last_block": {type: "number"},
-                        "schedule_version": {type: "number"},
-                        "size": {type: "number"},
-                        "producer": {type: "string"},
+                        "@timestamp": { type: "string" },
+                        "last_block": { type: "number" },
+                        "schedule_version": { type: "number" },
+                        "size": { type: "number" },
+                        "producer": { type: "string" },
                     }
                 }
             },

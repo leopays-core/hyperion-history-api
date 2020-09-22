@@ -1,14 +1,14 @@
 const hyperionModule = {
     chain: "*",
-    contract: 'eosio',
+    contract: 'lpc',
     action: 'voteproducer',
     parser_version: ['1.8', '1.7'],
     mappings: {
         action: {
             "@voteproducer": {
                 "properties": {
-                    "proxy": {"type": "keyword"},
-                    "producers": {"type": "keyword"}
+                    "proxy": { "type": "keyword" },
+                    "producers": { "type": "keyword" }
                 }
             }
         }
@@ -23,4 +23,4 @@ const hyperionModule = {
     }
 };
 
-module.exports = {hyperionModule};
+module.exports = { hyperionModule };

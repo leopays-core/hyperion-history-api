@@ -1,7 +1,7 @@
-import {ConfigurationModule} from "../modules/config";
-import {ConnectionManager} from "../connections/manager.class";
-import {HyperionConfig} from "../interfaces/hyperionConfig";
-import {Channel, Message} from "amqplib/callback_api";
+import { ConfigurationModule } from "../modules/config";
+import { ConnectionManager } from "../connections/manager.class";
+import { HyperionConfig } from "../interfaces/hyperionConfig";
+import { Channel, Message } from "amqplib/callback_api";
 
 class DspEventConsumer {
 
@@ -35,7 +35,7 @@ class DspEventConsumer {
             const q = `${this.manager.chain}:dsp`;
             console.log(q);
             this.ch.prefetch(100);
-            this.ch.assertQueue(q, {durable: true});
+            this.ch.assertQueue(q, { durable: true });
             this.ch.consume(q, (data) => {
                 this.onMessage(data);
             });
